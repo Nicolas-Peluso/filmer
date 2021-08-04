@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css"
 import { FaSearch, FaFacebookF, FaInstagram } from "react-icons/fa"
 
-function Header(){
+function Header(props){
+    const [search, SetSearch] = useState("") 
+
     return (
         <>
-            <nav>
-                    <div className="search">
-                        <input type="search" name="search" id="search" placeholder="Pesquisar..."/>
-                        <FaSearch className="searchIcon" />
-                    </div>
-                
+        <nav>
+            <form className="search" onSubmit={
+                e => {
+                    e.preventDefault()
+                    props.onSubmit(search)
+                }}> 
+              
+              <input type="search" name="search" id="search" value={search} onChange={(e) => SetSearch(e.target.value)} placeholder="Pesquisar..."/>
+              <button type="submit" className="searchIcon">
+              <FaSearch className="searchIcon" />
+            </button>
+            </form>
+
                 <ul className="ulNav">
                         <li>
                             <a href="#">lançamentos</a>
@@ -31,7 +40,6 @@ function Header(){
 
                 </ul>
             </nav>
-
         </>
     )
 }
