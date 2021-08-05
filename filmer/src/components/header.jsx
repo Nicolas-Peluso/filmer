@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import "./style.css"
-import { FaSearch, FaFacebookF, FaInstagram } from "react-icons/fa"
+import { FaFacebookF, FaInstagram } from "react-icons/fa"
 
 function Header(props){
     const [search, SetSearch] = useState("") 
 
     return (
-        <>
         <nav>
             <form className="search" onSubmit={
                 e => {
@@ -15,9 +14,7 @@ function Header(props){
                 }}> 
               
               <input type="search" name="search" id="search" value={search} onChange={(e) => SetSearch(e.target.value)} placeholder="Pesquisar..."/>
-              <button type="submit" className="searchIcon">
-              <FaSearch className="searchIcon" />
-            </button>
+              <button type="submit" className="searchIcon">pesquisar</button>
             </form>
 
                 <ul className="ulNav">
@@ -40,7 +37,7 @@ function Header(props){
 
                 </ul>
             </nav>
-        </>
+
     )
 }
 export default Header

@@ -5,46 +5,59 @@ export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 function Main(props){
 
     const [list, Setlist] = useState([])
-    
-useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/list/2?api_key=${apiKey}&language=pt-BR`)
-    .then(res => res.json())
-    .then(data => {
-        Setlist(data.items)
-        console.log("normal List",list) //temp
-    })
-    
-},[])
 
-useEffect(() => { // temp causador do erro 
-    Setlist(props.data.results)
-    console.log("props List",list) 
-},[props.data]) 
+useEffect(async () => {
+    let request = fetch(`https://api.themoviedb.org/3/list/2?api_key=${apiKey}&language=pt-BR`)
+    let response = (await request).json()
+    let data = (await response)
+    Setlist(data.items)
+}, [])
 
-
-function movieId(id){
+function movieId(id){ 
     console.log(id) // temp
 }
 
+const def = () => {
+return (
+            <section className="lançamentos">
+                <h1>lançamentos</h1>
+                {
+                    list.map(item => (
+                    <ul className="poster">
+
+                        <li key={item.title}>
+                            <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
+                            <p>{item.overview}</p>
+                            <button onClick={() => props.movie(item.id)}>ver mais</button>
+                        </li>
+                    </ul>   
+                    ))
+                }
+        </section>
+)    
+}
+const SearchReady = () => {
     return (
-                <section className="lançamentos">
-                    <h1>lançamentos</h1>
-                    {
-                        list.map(item => (
-                        <ul className="poster">
+        <section className="lançamentos">
+                <h1>pesquisa:{props.search}</h1>
+                {
+                    props.data.results.map(item => (
+                    <ul className="poster">
 
-                            <li key={item.id}>
-                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
-                                <p>{item.overview}</p>
-                                <button onClick={() => movieId(item.id)}>ver mais</button>
-                            </li>
-
-                        </ul>   
-                        ))
-                    }
-              <button onClick={() => console.log(props.data)}>valor</button>
-            </section>
+                        <li key={item.id}>
+                            <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
+                            <p>{item.overview}</p>
+                            <button onClick={() => movieId(item.id)}>ver mais</button>
+                        </li>
+                    </ul>   
+                    ))
+                }
+        </section>
     )
+}
+
+return !props.data ? def() : SearchReady()
+    
 }
 
 export default Main
