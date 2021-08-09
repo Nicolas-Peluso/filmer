@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import React from "react";
+import { Link} from "react-router-dom";
 export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
+
 
 function Main(props){
 
-    const [list, Setlist] = useState([])
-    const [Id, setId] = useState("")
+    const [list, Setlist] = useState([]) 
 
 useEffect(async () => {
     let request = fetch(`https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`)
@@ -14,18 +15,12 @@ useEffect(async () => {
     Setlist(data.items)    
 }, [])
 
-useEffect(() =>{
-    console.log("effect", Id)
-},[Id])
 
-function movieId(id){
-    setId(id)
-    props.movie(Id)
-}
 
 const def = () => {
 return (
             <section className="lançamentos">
+
                 <h1>lançamentos</h1>
                 {
                     list.map(item => (
@@ -33,7 +28,10 @@ return (
                         <li key={item.title}>
                             <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
                             <p>{item.overview}</p>
-                            <button onClick={() => movieId(item.id)}>ver mais</button>
+                            <Link to="/detail">
+                                <button onClick={() => {
+                                    props.movie(item.id)}}>ver mais</button>
+                            </Link>
                         </li>
                     </ul>   
                     ))
@@ -51,7 +49,10 @@ const SearchReady = () => {
                         <li key={item.id}>
                             <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
                             <p>{item.overview}</p>
-                            <button onClick={() => movieId(item.id)}>ver mais</button>
+                            <Link to="/detail">
+                                <button onClick={() => {
+                                    props.movie(item.id)}}>ver mais</button>
+                            </Link>
                         </li>
                     </ul>   
                     ))

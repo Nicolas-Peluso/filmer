@@ -158,3 +158,38 @@ footer a{
 footer a:hover{
     color: orange;
 }
+
+.detail{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+}
+
+.containerImg{
+    grid-column: 1;
+    position: relative;
+}
+.containerImg img{
+    border: 2px solid rgb(0, 0, 0);
+    position: absolute;
+    top: 15%;
+    right: 25%;
+    height: 500px;
+    width: 60%;
+}
+.ConstainerText{
+    position: relative;
+}
+.ConstainerText p{
+    position: absolute;
+    top: 15%;
+    right: 25%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.linkHeaderVoltar{
+    color: white;
+    text-decoration: none;
+}

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import "./style.css"
 import { FaFacebookF, FaInstagram } from "react-icons/fa"
+import {BrowserRouter as Router, Route, Link} from "react-router-dom"
 
 function Header(props){
     const [search, SetSearch] = useState("") 
-
+    
     return (
         <nav>
+            <Route path="/detail">
+                <Voltar />
+            </Route>   
+            
             <form className="search" onSubmit={
                 e => {
                     e.preventDefault()
@@ -15,6 +20,8 @@ function Header(props){
               
               <input type="search" name="search" id="search" value={search} onChange={(e) => SetSearch(e.target.value)} placeholder="Pesquisar..."/>
               <button type="submit" className="searchIcon">pesquisar</button>
+
+            
             </form>
 
                 <ul className="ulNav">
@@ -39,4 +46,11 @@ function Header(props){
             </nav>
     )
 }
+
+function Voltar(){
+        return (
+        <Link to="/" className="linkHeaderVoltar"><h1>Voltar</h1></Link>
+        )
+    }
+
 export default Header
