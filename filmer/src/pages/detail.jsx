@@ -2,7 +2,6 @@ import React from "react";
 
 
 function Detail(props) {
-    console.log("detail", props)
     
    const none = () => {
    return(
@@ -11,11 +10,11 @@ function Detail(props) {
     )
 }
 const n = () => {
+console.log("detail", props)
     return (
-<div className="detail">
-
-            {props.movie.movie_results.map(item => (       
-        <>   
+<div className="detail" key={props.movie.movie_results.id}>
+        {props.movie.movie_results.map(item => (       
+        <>
             <div className="containerImg">
                 <img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} alt="" className="backGroundPoster"/>
             </div>   
@@ -23,7 +22,7 @@ const n = () => {
                  <p>{item.overview}</p>
             </div>
         </>
-            ))}
+        ))}
 </div>
     )
 }
