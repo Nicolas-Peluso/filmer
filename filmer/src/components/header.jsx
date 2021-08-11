@@ -41,7 +41,7 @@ return (
                 </li>
 
                 <li key={3}>
-                    <a href="/">series</a>
+                    <a href="/series">series</a>
                 </li>
                         
                 <div className="iconsSocialMedia">
