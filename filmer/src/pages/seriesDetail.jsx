@@ -9,19 +9,18 @@ const none = () => {
     )
 }
 const OnPropsOk = () => {    
-    console.log(props)
     const seriado = props.seriado
     return (
-        <div className="detail Seriesdetail">
-            <div className="containerImg">
+        <div className="Seriesdetail">
+            <div className="imageSeriesDetail">
                 <img src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`} alt="" className="backGroundPoster"/>
-                <div style={{backgroundColor: takevote(seriado.vote_average),borderTop: "5px solid transparent" }} className="detailVotesSeries">
+                <div style={{backgroundColor: takevote(seriado.vote_average),borderTop: "5px solid transparent" }} className="detailVotesSeriesDetail">
                     <div>{seriado.vote_average}</div>
                 </div>
             </div>   
-            <div className="ConstainerText serieContainerText">
+            <div className="serieDetailContainerText">
                 <p>{seriado.overview}</p>
-                <ul className="constainerDetailUlLi">
+                <ul>
                     <li>
                         criado por <span style={{color: "white"}}>{seriado.created_by.map(c => c.name)}</span>
                     </li><br />
@@ -42,12 +41,12 @@ const OnPropsOk = () => {
                         ultimo lançamento em: <span style={{color: "white"}}>{seriado.last_air_date}</span>
                     </li> <br />
 
-                    <li>
-                        networks:  {seriado.networks.map(net =>(
+                    <li className="network">
+                        networks  :   {seriado.networks.map(net =>(
                             <>
                                     <span style={{color: "white"}}>
                                     {net.name}
-                                    <img src={`https://image.tmdb.org/t/p/w500/${net.logo_path}`} alt="" style={{width: "100px", height: "100px", borderRadius: "50%"}} />
+                                    <img src={`https://image.tmdb.org/t/p/w500${net.logo_path}`} alt="" style={{width: "100px", height: "100px", borderRadius: "50%"}} />
                                     </span>
                             </>
                             ))}
@@ -84,7 +83,7 @@ const OnPropsOk = () => {
                                 <div>data de lançamento <span style={{color: "white"}}>{season.air_date}</span></div> <br />
                                 <div>nome da temporada <span style={{color: "white"}}>{season.name}</span></div><br />
                                 <div>quantia de episodios {<span style={{color: "white"}}>{season.episode_count}</span>}</div><br />
-                                <div><img src={`https://image.tmdb.org/t/p/w500/${season.logo_path}`} alt="" style={{width: "150px", height: "150px", borderRadius: "50%"}} /></div><br />
+                                <div><img src={`https://image.tmdb.org/t/p/w500/${season.poster_path}`} alt="" style={{width: "600px", height: "600px", borderRadius: ""}} /></div><br />
                         </>
                     ))}</li>
                 </ul>

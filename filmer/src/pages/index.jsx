@@ -9,6 +9,7 @@ import Pesquisar from "./pesquisar";
 import SeriesChooseGenders from "../components/seriesChooseGender";
 import Series from "./Series";
 import DetailSeries from "./seriesDetail";
+import PageNationControls from "../components/paginationNumber";
 
 function App(){
     const [data, SetData] = useState(undefined)
@@ -16,15 +17,15 @@ function App(){
     const [VideosForDetail, setVideosForDetail] = useState(undefined)
     const [series, setSeries] = useState(undefined)
     const [seriesDetail, setSeriesDetail] = useState(undefined)
-
+    const [pages, setPages] = useState(undefined)
     //testar mult pesquisas
 
  async function onSearchSubmit (search) {
-    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${search}&page=1&include_adult=false`)
+    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${search}&page=${"1"}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
     SetData(Data) 
-
+    setPages(Data.total_pages)
 }
 async function movieId (Id) {
     let request = fetch(`https://api.themoviedb.org/3/movie/${Id}/external_ids?api_key=${apiKey}`)
@@ -47,24 +48,33 @@ async function getVideosForDetail (id) {
 }
 
 async function getSeries (query) {
-    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=1&query=${query}&include_adult=false`)
+    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=3&query=${query}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
     setSeries(Data) 
     console.log("series index", Data)
 }
+
 async function getSeriesForDetail (id){
     let request = fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`)
     let response = (await request).json()
     let Data = (await response)
     setSeriesDetail(Data)
 }
+
+//graves problemas na hora de fazer a paginação 
+//nÂo to conseguindo usar essa
+async function t(pa){
+    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${"alex"}&page=${pa}&include_adult=false`)
+    let response = (await request).json()
+    let Data = (await response)
+    console.log(Data)
+}
+
     return( 
     <>
-    
     <Router>
         <Header onSubmit={onSearchSubmit} />
-        
     <Switch>
             <Route exact path="/">
                 <Main movie={movieId} video={getVideosForDetail}/>
@@ -74,6 +84,7 @@ async function getSeriesForDetail (id){
                 <Detail movie={movieDetail} video={VideosForDetail}/>
             </Route>
             <Route path="/pesquisar">
+                <PageNationControls TotalPage={pages} page={t}/>    
                 <Pesquisar data={data} movie={movieId}/>
             </Route>
             <Route path="/series">
@@ -83,6 +94,7 @@ async function getSeriesForDetail (id){
             <Route path="/serie/detail">
             <SeriesChooseGenders QuerySeries={getSeries}/>
             <DetailSeries seriado={seriesDetail}/>
+            
             </Route>
     </Switch>
           <Footer />

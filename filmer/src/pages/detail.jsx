@@ -17,7 +17,7 @@ function Detail(props) {
     )
 }
 const n = () => {
-console.log("detail", props)
+console.log("filme", props)
     return (
 <div className="detail" key={props.movie.movie_results.id}>
         {props.movie.movie_results.map(item => (       

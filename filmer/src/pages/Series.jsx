@@ -21,7 +21,7 @@ const OnPropsOk = () =>{
                                     <button onClick={() => {
                                         props.serieId(item.id)}}>ver mais</button>
                                 </Link>
-                                <div style={{backgroundColor: takevote(item.vote_average),borderTop: "5px solid transparent" }} className="teste">
+                                <div style={{backgroundColor: takevote(item.vote_average),borderTop: "5px solid transparent" }} className="votacion">
                                     <div>{item.vote_average}</div>
                             </div>
                         </li>

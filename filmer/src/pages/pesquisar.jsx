@@ -25,7 +25,7 @@ export default function Pesquisar(props){
                                     <button onClick={() => {
                                         props.movie(item.id)}}>ver mais</button>
                                 </Link>
-                                <div style={{backgroundColor: takevote(item.vote_average),borderTop: "5px solid transparent" }} className="teste">
+                                <div style={{backgroundColor: takevote(item.vote_average),borderTop: "5px solid transparent" }} className="votacion">
                                     <div>{item.vote_average}</div>
                             </div>
                         </li>
