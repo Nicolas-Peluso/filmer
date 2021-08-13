@@ -5,8 +5,9 @@ import { Route, Link, useHistory} from "react-router-dom"
 
 function Header(props){
     const [search, SetSearch] = useState("") 
-    const history = useHistory()
+    const [Type, SetType] = useState("movie") 
 
+    const history = useHistory()
 
 return (
     <nav>
@@ -15,20 +16,28 @@ return (
             </Route>
 
         <div className="search">
-                <input type="input" name="search" id="search" value={search} onChange={(e) => SetSearch(e.target.value)} placeholder="Pesquisar..."/>
-                <button type="button" className="searchIcon" onClick={(e) => {
+                <input type="input" name="search" id="search" onChange={(e) => SetSearch(e.target.value)} placeholder="Pesquisar..."/>
                     
+                    <select className="chooseSearch" onChange={e => SetType(e.target.value)} value={Type}>
+                        <option value="movie">filmes</option>
+                        <option value="tv">series</option>
+                        <option value="person">pessoas</option>
+                    </select>
+                
+                <button type="button" className="searchIcon" onClick={(e) => {
+                 
                     e.preventDefault()
                     if(search === "" || search === undefined){
                         alert("use um termo de pesquisa valido")
                     }
                     else{
-                        props.onSubmit(search)
+                        props.onSubmit({search: search, type:Type})
                         console.log("header", props)
                         history.push("/pesquisar")
                     }
                      
                 }}>pesquisar</button>
+                
         </div>
 
             <ul className="ulNav">

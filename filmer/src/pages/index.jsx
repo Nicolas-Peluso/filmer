@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import Main from "../components/main";
@@ -17,15 +17,17 @@ function App(){
     const [VideosForDetail, setVideosForDetail] = useState(undefined)
     const [series, setSeries] = useState(undefined)
     const [seriesDetail, setSeriesDetail] = useState(undefined)
-    const [pages, setPages] = useState(undefined)
-    //testar mult pesquisas
+    const [Totalpages, setTotalPages] = useState(undefined)
+    const [GetingQuerryFromHeader, setGetingQuerryFromHeader] = useState(undefined)
+    const [GetingQuerryFromSeries, setGetingQuerryFromSeries] = useState(undefined)
 
- async function onSearchSubmit (search) {
-    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${search}&page=${"1"}&include_adult=false`)
+    async function onSearchSubmit(search){   
+    let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=en-US&query=${search.search}&page=${"1"}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
     SetData(Data) 
-    setPages(Data.total_pages)
+    setTotalPages(Data.total_pages)
+    setGetingQuerryFromHeader(search.search)
 }
 async function movieId (Id) {
     let request = fetch(`https://api.themoviedb.org/3/movie/${Id}/external_ids?api_key=${apiKey}`)
@@ -38,7 +40,6 @@ async function movieId (Id) {
     setMovieDetail(data)
     console.log(data)
 }
-
 async function getVideosForDetail (id) {
     let request = fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`)
     let response = (await request).json()
@@ -46,56 +47,62 @@ async function getVideosForDetail (id) {
     setVideosForDetail(Data) 
     console.log("videos da func getVideos...",VideosForDetail)
 }
-
 async function getSeries (query) {
-    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=3&query=${query}&include_adult=false`)
+    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=1&query=${query}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
-    setSeries(Data) 
-    console.log("series index", Data)
+    console.log(Data)
+    setSeries (Data) 
+    setGetingQuerryFromSeries (query)
+    setTotalPages (Data.total_pages)
 }
-
 async function getSeriesForDetail (id){
     let request = fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`)
     let response = (await request).json()
     let Data = (await response)
     setSeriesDetail(Data)
 }
-
-//graves problemas na hora de fazer a paginação 
-//nÂo to conseguindo usar essa
-async function t(pa){
-    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${"alex"}&page=${pa}&include_adult=false`)
-    let response = (await request).json()
+async function PaginationForSearch(page){
+    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${GetingQuerryFromHeader}&page=${page}&include_adult=false`)
+    let response = (await request).json()   
     let Data = (await response)
-    console.log(Data)
+    SetData(Data)
 }
-
+async function PaginationForSeries(page){
+    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=${page}&query=${GetingQuerryFromSeries}&include_adult=false`)
+    let response = (await request).json()   
+    let Data = (await response)
+    setSeries(Data)
+}
     return( 
     <>
     <Router>
-        <Header onSubmit={onSearchSubmit} />
+        <Header onSubmit={onSearchSubmit}/>
     <Switch>
             <Route exact path="/">
-                <Main movie={movieId} video={getVideosForDetail}/>
+                    <Main movie={movieId} video={getVideosForDetail} />
             </Route>
 
             <Route path="/detail">
-                <Detail movie={movieDetail} video={VideosForDetail}/>
+                    <Detail movie={movieDetail} video={VideosForDetail} />
             </Route>
+
             <Route path="/pesquisar">
-                <PageNationControls TotalPage={pages} page={t}/>    
+                <PageNationControls TotalPage={Totalpages} page={PaginationForSearch} />
                 <Pesquisar data={data} movie={movieId}/>
             </Route>
+
             <Route path="/series">
+                    <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
                     <SeriesChooseGenders QuerySeries={getSeries}/>
                     <Series series={series} serieId={getSeriesForDetail}/>
             </Route>
+
             <Route path="/serie/detail">
-            <SeriesChooseGenders QuerySeries={getSeries}/>
-            <DetailSeries seriado={seriesDetail}/>
-            
+                    <SeriesChooseGenders QuerySeries={getSeries}/>
+                    <DetailSeries seriado={seriesDetail}/>
             </Route>
+
     </Switch>
           <Footer />
     </Router>

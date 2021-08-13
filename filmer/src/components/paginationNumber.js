@@ -2,92 +2,44 @@ import React, { useEffect, useState } from "react";
 
 export default function PageNationControls(props){
     const [paginas, setPaginas] = useState(undefined)
+    const [page, setPage] = useState(1)
 
-useEffect(() => {
+    useEffect(() => {
     async function getTotalPages(){
         let pages = (await props.TotalPage)
         let pagesAllRight = (await pages)
         setPaginas(pagesAllRight)
-        console.log("paginas", paginas)
     }
     getTotalPages()
-})
-const state = {
-    page: 1,
-    totalPage: paginas
-}
+}, [props])
 
-const controls = {
+useEffect(() => {
+    props.page(page)
+}, [page])
 
-    next(){
-        state.page++
-        
-        if(state.page > state.totalPage){
-            state.page = state.totalPage - 1
-        }
-        update()
-    },
-
-    prev(){
-        state.page--
-        if(state.page <= 1){
-            state.page = 2
-        }
-        update()
-    },
-
-    goTo(page){
-        state.page = page
-        
-        if(page < 1){
-            state.page = 1
-
-        }
-        if(page > state.totalPage){
-            state.page = state.totalPage
-        }
-        update()
-    },
-}
-
-function update(){
-    console.log("update", state.page) 
-    return state.page
-}
     return(
             <div id="paginate">
-                <div class="list">
-                    
-                </div>
-                <div class="controls">
-                    <button class="first" onClick={
-                        () => {
-                            props.page(state.page)
-                            controls.goTo(1)
-                         }
+                <div className="controls">
+                    <button className="first" onClick={() => {                        
+                        setPage(1)}
                     }>&#171;</button>
-                    <button class="prev" onClick={
-                        () => controls.prev(props.page(state.page - 1))
-                        
+
+                    <button className="prev" onClick={() => {
+                        page <= 1 ? setPage(1) : setPage(page => page - 1)}
                     }>{"<"}</button>
-                    <div class="numbers">
-                        <div>1</div>
+
+                    <div className="numbers">
+                        <div>{page} ate {paginas}</div>
                     </div>
-                    <button type="button" class="next" onClick={
-                        () => {
-                            props.page(state.page + 1)
-                            controls.next()
-                        }
-                        
+
+                    <button type="button" className="next" onClick={() => {
+                        page >= paginas ? setPage(paginas) : setPage(page + 1)}
                     }>{">"}</button>
-                    <button class="last" onClick={
-                        () => {
-                            props.page(state.page)
-                            controls.goTo(state.totalPage)
-                        }
+
+                    <button className="last" onClick={() => {
+                        setPage(paginas)}
                     }>&#187;</button>
                 </div>
             </div>
  )
-    
 }
