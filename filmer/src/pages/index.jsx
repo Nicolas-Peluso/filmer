@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import Main from "../components/main";
@@ -20,14 +20,16 @@ function App(){
     const [Totalpages, setTotalPages] = useState(undefined)
     const [GetingQuerryFromHeader, setGetingQuerryFromHeader] = useState(undefined)
     const [GetingQuerryFromSeries, setGetingQuerryFromSeries] = useState(undefined)
+    const [Type, setGetType] = useState(undefined)
 
-    async function onSearchSubmit(search){   
-    let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=en-US&query=${search.search}&page=${"1"}&include_adult=false`)
+async function onSearchSubmit(search){   
+    setGetingQuerryFromHeader(search.search)
+    setGetType(search.type)
+    let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=pt-BR&query=${search.search}&page=${"1"}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
     SetData(Data) 
     setTotalPages(Data.total_pages)
-    setGetingQuerryFromHeader(search.search)
 }
 async function movieId (Id) {
     let request = fetch(`https://api.themoviedb.org/3/movie/${Id}/external_ids?api_key=${apiKey}`)
@@ -38,7 +40,6 @@ async function movieId (Id) {
     let responseImdb = (await requestImdb).json()
     let data = (await responseImdb)
     setMovieDetail(data)
-    console.log(data)
 }
 async function getVideosForDetail (id) {
     let request = fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`)
@@ -47,13 +48,13 @@ async function getVideosForDetail (id) {
     setVideosForDetail(Data) 
     console.log("videos da func getVideos...",VideosForDetail)
 }
-async function getSeries (query) {
+async function getSeries (query) {  
+    setGetingQuerryFromSeries (query)
     let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=1&query=${query}&include_adult=false`)
     let response = (await request).json()
     let Data = (await response)
     console.log(Data)
     setSeries (Data) 
-    setGetingQuerryFromSeries (query)
     setTotalPages (Data.total_pages)
 }
 async function getSeriesForDetail (id){
@@ -63,17 +64,19 @@ async function getSeriesForDetail (id){
     setSeriesDetail(Data)
 }
 async function PaginationForSearch(page){
-    let request = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${GetingQuerryFromHeader}&page=${page}&include_adult=false`)
+    let request = fetch(`https://api.themoviedb.org/3/search/${Type}?api_key=${apiKey}&language=pt-BR&query=${GetingQuerryFromHeader}&page=${page}&include_adult=false`)
     let response = (await request).json()   
     let Data = (await response)
     SetData(Data)
 }
 async function PaginationForSeries(page){
-    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=${page}&query=${GetingQuerryFromSeries}&include_adult=false`)
+    let search = (await GetingQuerryFromSeries)
+    let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=${page}&query=${search}&include_adult=false`)
     let response = (await request).json()   
     let Data = (await response)
     setSeries(Data)
 }
+
     return( 
     <>
     <Router>
@@ -89,7 +92,7 @@ async function PaginationForSeries(page){
 
             <Route path="/pesquisar">
                 <PageNationControls TotalPage={Totalpages} page={PaginationForSearch} />
-                <Pesquisar data={data} movie={movieId}/>
+                <Pesquisar data={data} movie={movieId} />
             </Route>
 
             <Route path="/series">

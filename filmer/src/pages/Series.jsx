@@ -8,10 +8,10 @@ export default function Series(props){
 const OnPropsOk = () =>{
     return (
         <>
-            <section className="lançamentos">
+            <section className="container">
                 <h1>SERIES</h1>
                 {
-                    
+
                     props.series.results.map(item => (
                     <ul className="poster" >
                         <li key={item.id}>

@@ -28,14 +28,14 @@ fetchData()
 
 
 return (
-            <section className="lançamentos">
+            <section className="container">
 
                 <h1>lançamentos</h1>
                 {
-                    list.map(item => (
+                    list.map((item) => (
                     <ul className="poster">
                         
-                        <li key={item.id}>
+                        <li key={item.indice}>
                             <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
                             <p>{item.overview}</p>
                             <Link to="/detail">
