@@ -9,7 +9,7 @@ function quantidadeDePessoasQueVotarao(votosPessoas) {
     )
 }
 function Detail(props) {
-    
+    console.log(props.series !== undefined ? "serie" : "movie")
    const none = () => {
    return(
        <>

@@ -133,7 +133,7 @@ nav{
     position: relative;
 }
 
-.container ul li p{
+.container ul li .descrição{
     position: absolute;
     z-index: 5000;
     top: 0%;
@@ -163,7 +163,7 @@ nav{
 .container ul li button:hover{
     background:linear-gradient(90deg, #cb62ff, #f648ff)
 }
-.container ul:hover p{
+.container ul:hover .descrição{
     opacity: 1;
 }
 .container ul:hover img{
@@ -404,6 +404,21 @@ footer a:hover{
 #paginate .controls button.numbers button{
     width: 40px;
     height: 40px;
+}
+.containerIcon{
+    position: absolute;
+    bottom: 15px;
+    right: 50%;
+}
+.favIcon{
+    cursor: pointer;
+    font-size: 2em;
+    z-index: 800000;
+    color: white;
+}
+
+.favIcon:hover{
+    color: yellow;
 }
 
 @media(max-Width: 1240px){

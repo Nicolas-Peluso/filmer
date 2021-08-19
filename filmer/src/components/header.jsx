@@ -6,7 +6,6 @@ import { Route, Link, useHistory} from "react-router-dom"
 function Header(props){
     const [search, SetSearch] = useState("") 
     const [Type, SetType] = useState("movie") 
-    
     const history = useHistory()
 
 return (
@@ -44,7 +43,7 @@ return (
                 </li>
                         
                 <li key={2}>
-                    <a href="/">ver mais</a>
+                    <a href="/favorito">favoritos</a>
                 </li>
 
                 <li key={3}>
