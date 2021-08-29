@@ -1,12 +1,42 @@
 import React from "react"
+import { Link } from "react-router-dom"
+import { takevote } from "../components/main"
 
 export default function Favorito(props) {
-    console.log("favorite", props)
+    const fav = JSON.parse(sessionStorage.getItem("falmesFav"))
     return (
-        <>
-            <div>
-                <h1>wwww</h1>
-            </div>
-        </>
+        <section className="container">
+            {fav.map((item) => (
+                <ul className="poster">
+                    <li key={item.id}>
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                            alt=""
+                        />
+                        <p className="descrição">{item.overview}</p>
+                        <Link to="/detail">
+                            <button
+                                onClick={() => {
+                                    props.movie(item.id);
+                                    props.video(item.id);
+                                }}
+                            >
+                                ver mais
+                            </button>
+                        </Link>
+                        <div
+                            style={{
+                                backgroundColor: takevote(item.vote_average),
+                                borderTop: "5px solid transparent",
+                            }}
+                            className="votacion"
+                        >
+                            <div>{item.vote_average}</div>
+                        </div>
+                    </li>
+                </ul>
+            ))}
+        </section>
+
     )
 }

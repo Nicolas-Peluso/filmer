@@ -1,71 +1,72 @@
 import React, { useState } from "react";
 import "./style.css"
 import { FaFacebookF, FaInstagram } from "react-icons/fa"
-import { Route, Link, useHistory} from "react-router-dom"
+import { Route, Link, useHistory } from "react-router-dom"
 
-function Header(props){
-    const [search, SetSearch] = useState("") 
-    const [Type, SetType] = useState("movie") 
+function Header(props) {
+    const [search, SetSearch] = useState("")
+    const [Type, SetType] = useState("movie")
     const history = useHistory()
 
-return (
-    <nav>
+    return (
+        <nav>
             <Route path="/detail">
                 <Voltar />
             </Route>
 
-        <div className="search">
-                <input type="input" name="search" id="search" onChange={(e) => SetSearch(e.target.value)} placeholder={`pesquisar por `}/>
+            <div className="search">
+                <input type="input" name="search" id="search" onChange={(e) => SetSearch(e.target.value)} placeholder={`pesquisar por `} />
                 <select id="" onChange={e => SetType(e.target.value)}>
                     <option value="movie">filme</option>
                     <option value="tv">serie</option>
                     <option value="person">pessoa</option>
                 </select>
                 <button type="button" className="searchIcon" onClick={(e) => {
-                 
+
                     e.preventDefault()
-                    if(search === "" || search === undefined){
+                    if (search === "" || search === undefined) {
                         alert("use um termo de pesquisa valido")
                     }
-                    else{
-                        props.onSubmit({search: search, type: Type})
+                    else {
+                        props.onSubmit({ search: search, type: Type })
                         console.log("header", props)
                         history.push("/pesquisar")
                     }
 
                 }}>pesquisar</button>
-                
-        </div>
+
+            </div>
 
             <ul className="ulNav">
                 <li key={1}>
-                    <a href="/">lançamentos</a>
+                    <Link to="/">lançamentos</Link>
+
                 </li>
-                        
+
                 <li key={2}>
-                    <a href="/favorito">favoritos</a>
+                    <Link to="/favoritos">favoritos</Link>
                 </li>
 
                 <li key={3}>
-                    <a href="/series">series</a>
+                    <Link to="/series">series</Link>
                 </li>
-                        
+
                 <div className="iconsSocialMedia">
-                    <FaFacebookF className="media facebook"/>
-                    <FaInstagram className="media instagram"/>
+                    <FaFacebookF className="media facebook" />
+                    <FaInstagram className="media instagram" />
                 </div>
 
-                </ul>
+            </ul>
         </nav>
-)
+    )
 
 }
 
-function Voltar(){
+function Voltar() {
     return (
-    <Link to="/" className="linkHeaderVoltar"><h1>Voltar</h1></Link>
+        <Link to="/" className="linkHeaderVoltar"><h1>Voltar</h1></Link>
     )
 }
-  
+
 
 export default Header
