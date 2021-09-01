@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import Main from "../components/main";
-import Detail from "./detail";
+import Detail from "../pages/detail";
 import { apiKey } from "../components/main";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Pesquisar from "./pesquisar";
+import Pesquisar from "../pages/pesquisar";
 import SeriesChooseGenders from "../components/seriesChooseGender";
-import Series from "./Series";
-import DetailSeries from "./seriesDetail";
-import PageNationControls from "../components/paginationNumber";
-import PersonPage from "./personDetail";
-import Favorito from "./favorito";
+import Series from "../pages/Series";
+import DetailSeries from "../pages/seriesDetail";
+import PageNationControls from "../components/paginationNumber.jsx";
+import PersonPage from "../pages/personDetail";
+import Favorito from "../pages/favorito";
+import api from "../services/api"
+import CreatList from "../post/CreatList";
 
-function App() {
+function Rotas() {
+
     const [data, SetData] = useState(undefined)
     const [movieDetail, setMovieDetail] = useState(undefined)
     const [VideosForDetail, setVideosForDetail] = useState(undefined)
@@ -24,54 +27,48 @@ function App() {
     const [GetingQuerryFromSeries, setGetingQuerryFromSeries] = useState(undefined)
     const [Type, setGetType] = useState(undefined)
     const [PersonData, setPerson] = useState(undefined)
-    const [favoritoNumber, setFav] = useState([])
-    let arr = new Set()
+    const [page, setPage] = useState(undefined)
 
+    useEffect(() => SetData(page), [page])
 
-    async function onSearchSubmit(search) {
+    const FromHeader = (search) => {
         setGetingQuerryFromHeader(search.search)
         setGetType(search.type)
-        let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=pt-BR&query=${search.search}&page=${"1"}&include_adult=false`)
-        let response = (await request).json()
-        let Data = (await response)
-        SetData(Data)
-        setTotalPages(Data.total_pages)
+        api.onSearchSubmit(search).then(data => {
+            SetData(data)
+            setTotalPages(data.total_pages)
+        })
     }
 
-    async function movieId(Id) {
-        let request = fetch(`https://api.themoviedb.org/3/movie/${Id}/external_ids?api_key=${apiKey}`)
-        let response = (await request).json()
-        let Data = (await response)
-        let IdImdb = (await Data.imdb_id)
-        let requestImdb = fetch(`https://api.themoviedb.org/3/find/${IdImdb}?api_key=${apiKey}&language=pt-BR&external_source=imdb_id`)
-        let responseImdb = (await requestImdb).json()
-        let data = (await responseImdb)
-        setMovieDetail(data)
+    const GetMovieId = (id) => {
+        api.movieId(id).then(data => {
+            setMovieDetail(data)
+        })
     }
 
-    async function getVideosForDetail(id) {
-        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`)
-        let response = (await request).json()
-        let Data = (await response)
-        setVideosForDetail(Data)
-        console.log("videos da func getVideos...", VideosForDetail)
+    const GetVideosForDetail = (id) => {
+        api.getVideosForDetail(id).then(data => {
+            setVideosForDetail(data)
+        })
     }
 
-    async function getSeries(query) {
+    const getSeries = (query) => {
         setGetingQuerryFromSeries(query)
-        let request = fetch(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=pt-BR&page=1&query=${query}&include_adult=false`)
-        let response = (await request).json()
-        let Data = (await response)
-        console.log(Data)
-        setSeries(Data)
-        setTotalPages(Data.total_pages)
+        api.getSeries(query).then(data => {
+            setSeries(data)
+            setTotalPages(data.total_pages)
+        })
     }
+    const getSeriesForDetail = (query) => {
+        api.getSeriesForDetail(query).then(data => {
+            setSeriesDetail(data)
+        })
+    }
+    const GetPerson = (id) => {
+        api.person(id).then(data => {
+            setPerson(data)
 
-    async function getSeriesForDetail(id) {
-        let request = fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`)
-        let response = (await request).json()
-        let Data = (await response)
-        setSeriesDetail(Data)
+        })
     }
 
     async function PaginationForSearch(page) {
@@ -79,7 +76,7 @@ function App() {
         let request = fetch(`https://api.themoviedb.org/3/search/${Type}?api_key=${apiKey}&language=pt-BR&query=${search}&page=${page}&include_adult=false`)
         let response = (await request).json()
         let Data = (await response)
-        SetData(Data)
+        setPage(Data)
     }
 
     async function PaginationForSeries(page) {
@@ -90,20 +87,14 @@ function App() {
         setSeries(Data)
     }
 
-    async function person(id) {
-        let request = fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}&language=pt-BR`)
-        let response = (await request).json()
-        let Data = (await response)
-        setPerson(Data)
-    }
-
     return (
         <>
+            <CreatList />
             <Router>
-                <Header onSubmit={onSearchSubmit} />
+                <Header onSubmit={FromHeader} />
                 <Switch>
                     <Route exact path="/">
-                        <Main movie={movieId} video={getVideosForDetail} />
+                        <Main movie={GetMovieId} video={GetVideosForDetail} />
                     </Route>
 
                     <Route path="/detail">
@@ -115,8 +106,7 @@ function App() {
                     </Route>
 
                     <Route path="/pesquisar">
-                        <PageNationControls TotalPage={Totalpages} page={PaginationForSearch} />
-                        <Pesquisar data={data} movie={movieId} pessoa={person} />
+                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} TotalPage={Totalpages} page={PaginationForSearch} />
                     </Route>
 
                     <Route path="/series">
@@ -131,7 +121,7 @@ function App() {
                     </Route>
 
                     <Route path="/favoritos">
-                        <Favorito movie={movieId} video={getVideosForDetail} />
+                        <Favorito movie={GetMovieId} video={GetVideosForDetail} />
                     </Route>
 
                 </Switch>
@@ -141,4 +131,4 @@ function App() {
     )
 }
 
-export default App
+export default Rotas

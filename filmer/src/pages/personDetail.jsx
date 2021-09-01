@@ -18,7 +18,7 @@ export default function PersonPage(props) {
         >
           <h4>tambem conhecido como:</h4>
           {props.pessoa.also_known_as.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={item.id}>{item}</li>
           ))}
         </ul>
         <div className="bio" style={{ width: "500px", margin: "0px auto" }}>
@@ -48,5 +48,5 @@ export default function PersonPage(props) {
     );
   };
 
-  return props.pessoa !== undefined ? perosnDetailRight() : def();
+  return !props.pessoa ? def() : perosnDetailRight();
 }

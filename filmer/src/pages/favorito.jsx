@@ -7,7 +7,7 @@ export default function Favorito(props) {
     return (
         <section className="container">
             {fav.map((item) => (
-                <ul className="poster">
+                <ul className="poster" key={item.id}>
                     <li key={item.id}>
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}

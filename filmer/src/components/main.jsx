@@ -1,30 +1,26 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegStar } from "react-icons/fa";
+import bubble from "./bubbles";
 export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
 function Main(props) {
-  const [list, Setlist] = useState([]);
+  const [list, Setlist] = useState(undefined);
   const test = [];
 
   useEffect(() => {
     async function fetchData() {
-      let request = fetch(
-        `https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`
-      );
+      let request = fetch(`https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`);
       let response = (await request).json();
       let data = await response;
       Setlist(data.items);
-      console.log(data.items);
     }
-
     fetchData();
   }, []);
 
-
-  function teste(id) { //função responsssavel por filtrar se o fav ja existe e por setar ele no sessionStorage
+  function teste(id) {
     const favo = list.map(item => {
       return item.id === id ? { ...item, favorite: !item.favorite } : item
     })
@@ -32,19 +28,21 @@ function Main(props) {
     favo.map(favoriteItem => {
       if (favoriteItem.favorite) {
         test.push(favoriteItem)
-        sessionStorage.setItem("falmesFav", JSON.stringify(test))
+        return sessionStorage.setItem("falmesFav", JSON.stringify(test))
       }
       else
-        console.log("nada")
+        return console.log("nada")
     })
     console.log(list)
   }
 
   return (
     <section className="container">
+
       <h1>lançamentos</h1>
-      {list.map((item, i) => (
-        <ul className="poster">
+      {list && bubble()}
+      {list && list.map((item) => (
+        <ul className="poster" key={item.id}>
           <li key={item.id}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
@@ -62,6 +60,7 @@ function Main(props) {
                 ver mais
               </button>
             </Link>
+
             <div
               style={{
                 backgroundColor: takevote(item.vote_average),
@@ -76,6 +75,10 @@ function Main(props) {
                 className="favIcon"
                 onClick={() => {
                   teste(item.id)
+                  const a = sessionStorage.getItem("falmesFav")
+                  const t = JSON.parse(a)
+                  test.push([...t])
+                  console.log(test)
                 }}
               />
 

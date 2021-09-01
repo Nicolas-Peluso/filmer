@@ -3,20 +3,19 @@ import React, { useEffect, useState } from "react";
 export default function PageNationControls(props) {
   const [paginas, setPaginas] = useState(undefined);
   const [actualpage, setActualPage] = useState(1);
+  const { page } = props
 
   useEffect(() => {
     setPaginas(props.TotalPage);
   }, [props.TotalPage]);
 
   useEffect(() => {
-    const o = () => {
-      props.page(actualpage);
-    };
-    o();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    page(actualpage)
+
   }, [actualpage]);
 
-  return paginas === undefined ? (
+  return !paginas ? (
     ""
   ) : (
     <div id="paginate">

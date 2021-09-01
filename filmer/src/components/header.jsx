@@ -31,6 +31,7 @@ function Header(props) {
                         props.onSubmit({ search: search, type: Type })
                         console.log("header", props)
                         history.push("/pesquisar")
+
                     }
 
                 }}>pesquisar</button>

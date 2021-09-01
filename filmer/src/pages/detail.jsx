@@ -9,20 +9,17 @@ function quantidadeDePessoasQueVotarao(votosPessoas) {
     )
 }
 function Detail(props) {
-    console.log(props.series !== undefined ? "serie" : "movie")
-    const none = () => {
-        return (
-            <>
-            </>
-        )
-    }
+
+    const none = () => <></>
+
+
     const n = () => {
         console.log("filme", props)
         return (
-            <div className="detail" key={props.movie.movie_results.id}>
+            <div className="detail" >
                 {props.movie.movie_results.map(item => (
                     <>
-                        <div className="containerImg">
+                        <div className="containerImg" key={props.movie.movie_results.id}>
                             <img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} alt="" className="backGroundPoster" />
                             <div style={{ backgroundColor: takevote(item.vote_average), borderTop: "5px solid transparent" }} className="detailVotes">
                                 <div>{item.vote_average}</div>

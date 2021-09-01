@@ -61,7 +61,7 @@ export default function DetailSeries(props) {
               networks :{" "}
               {seriado.networks.map((net) => (
                 <>
-                  <span style={{ color: "white" }}>
+                  <span style={{ color: "white" }} key={net.name}>
                     {net.name}
                     <img
                       src={`https://image.tmdb.org/t/p/w500${net.logo_path}`}
@@ -94,7 +94,7 @@ export default function DetailSeries(props) {
               produtora:{" "}
               {seriado.production_companies.map((compane) => (
                 <>
-                  <span style={{ color: "white" }}>
+                  <span style={{ color: "white" }} key={compane.name}>
                     {compane.name}
                     <img
                       src={`https://image.tmdb.org/t/p/w500/${compane.logo_path}`}
@@ -104,6 +104,7 @@ export default function DetailSeries(props) {
                         height: "50px",
                         borderRadius: "50%",
                       }}
+                      key={compane.name}
                     />
                   </span>
                 </>
@@ -113,15 +114,15 @@ export default function DetailSeries(props) {
             <li>
               pais de produção{" "}
               {seriado.production_countries.map((cou) => (
-                <span>{cou.name}</span>
+                <span key={cou.name}>{cou.name}</span>
               ))}
             </li>{" "}
             <br /> <br />
             <li>
               <span style={{ color: "white" }}>TEMPORADAS:</span> <br />{" "}
               {seriado.seasons.map((season) => (
-                <>
-                  <div>
+                <div key={season.name}>
+                  <div key={season.name}>
                     data de lançamento{" "}
                     <span style={{ color: "white" }}>{season.air_date}</span>
                   </div>{" "}
@@ -152,7 +153,7 @@ export default function DetailSeries(props) {
                     />
                   </div>
                   <br />
-                </>
+                </div>
               ))}
             </li>
           </ul>
@@ -160,5 +161,5 @@ export default function DetailSeries(props) {
       </div>
     );
   };
-  return props.seriado === undefined ? none() : OnPropsOk();
+  return !props.seriado ? none() : OnPropsOk();
 }
