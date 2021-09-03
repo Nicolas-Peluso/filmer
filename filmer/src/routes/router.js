@@ -13,7 +13,7 @@ import PageNationControls from "../components/paginationNumber.jsx";
 import PersonPage from "../pages/personDetail";
 import Favorito from "../pages/favorito";
 import api from "../services/api"
-import CreatList from "../post/CreatList";
+import ContextObjet from "../context/Contexto";
 
 function Rotas() {
 
@@ -89,7 +89,6 @@ function Rotas() {
 
     return (
         <>
-            <CreatList />
             <Router>
                 <Header onSubmit={FromHeader} />
                 <Switch>
@@ -98,11 +97,15 @@ function Rotas() {
                     </Route>
 
                     <Route path="/detail">
-                        <Detail movie={movieDetail} video={VideosForDetail} />
+                        <ContextObjet.Provider value={{ movie: movieDetail, video: VideosForDetail }}>
+                            <Detail />
+                        </ContextObjet.Provider>
                     </Route>
 
                     <Route path="/pessoa">
-                        <PersonPage pessoa={PersonData} />
+                        <ContextObjet.Provider value={PersonData}>
+                            <PersonPage />
+                        </ContextObjet.Provider>
                     </Route>
 
                     <Route path="/pesquisar">

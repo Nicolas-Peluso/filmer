@@ -1,6 +1,7 @@
 import React from "react";
 import { takevote } from "../components/main";
 import { Link } from "react-router-dom";
+import bubble from "../components/bubbles";
 
 export default function Series(props) {
   console.log("props series", props);
@@ -8,6 +9,7 @@ export default function Series(props) {
   const OnPropsOk = () => {
     return (
       <>
+        {props.series.results.length && bubble()}
         <section className="container">
           <h1>SERIES</h1>
           {props.series.results.map((item) => (

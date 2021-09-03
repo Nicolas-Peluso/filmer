@@ -5,7 +5,9 @@ import { takevote } from "../components/main"
 export default function Favorito(props) {
     const fav = JSON.parse(sessionStorage.getItem("falmesFav"))
     return (
-        <section className="container">
+
+
+        fav && <section className="container">
             {fav.map((item) => (
                 <ul className="poster" key={item.id}>
                     <li key={item.id}>
@@ -37,6 +39,5 @@ export default function Favorito(props) {
                 </ul>
             ))}
         </section>
-
     )
 }

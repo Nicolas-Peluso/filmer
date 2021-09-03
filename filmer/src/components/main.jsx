@@ -6,9 +6,12 @@ import bubble from "./bubbles";
 export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
+
+
 function Main(props) {
   const [list, Setlist] = useState(undefined);
   const test = [];
+
 
   useEffect(() => {
     async function fetchData() {
@@ -75,10 +78,10 @@ function Main(props) {
                 className="favIcon"
                 onClick={() => {
                   teste(item.id)
-                  const a = sessionStorage.getItem("falmesFav")
+                  /* const a = sessionStorage.getItem("falmesFav")
                   const t = JSON.parse(a)
                   test.push([...t])
-                  console.log(test)
+                  console.log(test) */
                 }}
               />
 

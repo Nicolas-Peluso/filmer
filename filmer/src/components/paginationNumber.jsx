@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function PageNationControls(props) {
   const [paginas, setPaginas] = useState(undefined);
   const [actualpage, setActualPage] = useState(1);
-  const { page } = props
+  let PageRef = useRef()
+  PageRef = props.page
 
   useEffect(() => {
     setPaginas(props.TotalPage);
@@ -11,7 +12,7 @@ export default function PageNationControls(props) {
 
   useEffect(() => {
 
-    page(actualpage)
+    PageRef(actualpage)
 
   }, [actualpage]);
 

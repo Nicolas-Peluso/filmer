@@ -1,4 +1,4 @@
-import { apiKey } from "../components/main";
+/* import { apiKey } from "../components/main";
 import React from "react"
 import { sesinId } from "./GetSessionID";
 
@@ -30,4 +30,4 @@ function CreatList() {
     )
 }
 
-export default CreatList
+export default CreatList */

@@ -11,7 +11,7 @@ export default function Pesquisar(props) {
       <PageNationControls TotalPage={props.TotalPage} page={props.page} />
       {console.log(props)}
       {props.data && <section className="container">
-        {bubble()}
+        {props.data.results.length && bubble()}
         <h1>pesquisa:</h1>
         {props.data.results.map((item) => (
           <ul className="poster" key={item.id}>

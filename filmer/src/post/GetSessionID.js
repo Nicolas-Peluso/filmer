@@ -1,4 +1,4 @@
-import { apiKey } from "../components/main";
+/* import { apiKey } from "../components/main";
 
 async function getSessionID() {
     let request = fetch(`https://api.themoviedb.org/3/authentication/token/new?api_key=${apiKey}`)
@@ -10,4 +10,4 @@ async function getSessionID() {
 
 getSessionID()
 
-export let sesinId;
+export let sesinId; */

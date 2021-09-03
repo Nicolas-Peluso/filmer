@@ -1,6 +1,6 @@
 import { apiKey } from "../components/main"
 
-const t = {
+const servicesApi = {
 
     async onSearchSubmit(search) {
         let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=pt-BR&query=${search.search}&page=${"1"}&include_adult=false`)
@@ -47,4 +47,4 @@ const t = {
 
 }
 
-export default t
+export default servicesApi
