@@ -14,6 +14,7 @@ import PersonPage from "../pages/personDetail";
 import Favorito from "../pages/favorito";
 import api from "../services/api"
 import ContextObjet from "../context/Contexto";
+import FormPost from "../post/postForm";
 
 function Rotas() {
 
@@ -88,10 +89,15 @@ function Rotas() {
     }
 
     return (
+
         <>
+
             <Router>
                 <Header onSubmit={FromHeader} />
                 <Switch>
+                    <Route path="/Create/List">
+                        <FormPost />
+                    </Route>
                     <Route exact path="/">
                         <Main movie={GetMovieId} video={GetVideosForDetail} />
                     </Route>
