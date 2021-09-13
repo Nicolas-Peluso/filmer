@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import Rotas from "./routes/router";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Rotas />
-  </React.StrictMode>,
+  <Rotas />,
   document.getElementById("root")
 );

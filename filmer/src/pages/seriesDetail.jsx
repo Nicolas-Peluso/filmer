@@ -59,7 +59,7 @@ export default function DetailSeries(props) {
             <br />
             <li className="network">
               networks :{" "}
-              {seriado.networks.map((net) => (
+              {seriado.networks.map((net, i) => (
                 <>
                   <span style={{ color: "white" }} key={net.name}>
                     {net.name}
@@ -71,6 +71,7 @@ export default function DetailSeries(props) {
                         height: "100px",
                         borderRadius: "50%",
                       }}
+                      key={i}
                     />
                   </span>
                 </>
@@ -92,7 +93,7 @@ export default function DetailSeries(props) {
             <br />
             <li>
               produtora:{" "}
-              {seriado.production_companies.map((compane) => (
+              {seriado.production_companies.map((compane, i) => (
                 <>
                   <span style={{ color: "white" }} key={compane.name}>
                     {compane.name}
@@ -104,7 +105,7 @@ export default function DetailSeries(props) {
                         height: "50px",
                         borderRadius: "50%",
                       }}
-                      key={compane.name}
+                      key={i}
                     />
                   </span>
                 </>
@@ -120,28 +121,28 @@ export default function DetailSeries(props) {
             <br /> <br />
             <li>
               <span style={{ color: "white" }}>TEMPORADAS:</span> <br />{" "}
-              {seriado.seasons.map((season) => (
+              {seriado.seasons.map((season, i) => (
                 <div key={season.name}>
-                  <div key={season.name}>
+                  <div key={i}>
                     data de lançamento{" "}
-                    <span style={{ color: "white" }}>{season.air_date}</span>
+                    <span style={{ color: "white" }} key={i + 2}>{season.air_date}</span>
                   </div>{" "}
                   <br />
-                  <div>
+                  <div key={i + 1}>
                     nome da temporada{" "}
-                    <span style={{ color: "white" }}>{season.name}</span>
+                    <span style={{ color: "white" }} key={i + 3}>{season.name}</span>
                   </div>
                   <br />
-                  <div>
+                  <div key={i + 4}>
                     quantia de episodios{" "}
                     {
-                      <span style={{ color: "white" }}>
+                      <span style={{ color: "white" }} key={i + 5}>
                         {season.episode_count}
                       </span>
                     }
                   </div>
                   <br />
-                  <div>
+                  <div key={i + 6}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500/${season.poster_path}`}
                       alt=""
@@ -150,6 +151,7 @@ export default function DetailSeries(props) {
                         height: "600px",
                         borderRadius: "",
                       }}
+                      key={i + 7}
                     />
                   </div>
                   <br />

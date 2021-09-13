@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { apiKey } from "../components/main"
+//import { apiKey } from "../components/main"
 import getSessionID from "./GetSessionID"
 import "./stylePost.css"
 export default function FormPost() {
@@ -16,11 +16,11 @@ export default function FormPost() {
     const DescRef = useRef()
     const LangRef = useRef()
 
-    let Body = {
-        "name": ListName,
-        "description": Description,
-        "language": Language
-    }
+    // let Body = {
+    //    "name": ListName,
+    //    "description": Description,
+    //    "language": Language
+    //}
     !sessionID && getSessionID().then(e => {
         sessionStorage.setItem("session", e.guest_session_id)
         console.log(e)
