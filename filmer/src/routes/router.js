@@ -115,7 +115,7 @@ function Rotas() {
                     </Route>
 
                     <Route path="/pesquisar">
-                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} TotalPage={Totalpages} page={PaginationForSearch} />
+                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch} />
                     </Route>
 
                     <Route path="/series">

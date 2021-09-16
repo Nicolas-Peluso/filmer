@@ -6,22 +6,21 @@ import { Route, Link, useHistory } from "react-router-dom"
 function Header(props) {
     const [search, SetSearch] = useState("")
     const [Type, SetType] = useState("movie")
-    const warningKey = ["<", ">"]
+    const warningKey = ["<", ">", "<>", "'", "''"]
     const history = useHistory()
 
     function handleSubit(e) {
         e.preventDefault()
-        warningKey.map(i => {
-            if (search.includes(i) || search === "" || search === undefined) {
-                alert("nao permitimos buscas com: ''(aspas), <>(maior ou igual)")
-            }
-            else {
-                props.onSubmit({ search: search, type: Type })
-                console.log("header", props)
-                history.push("/pesquisar")
-            }
-        })
+        if (warningKey.includes(search) || search === "" || search === undefined) {
+            alert("nao permitimos buscas com: ''(aspas), <>(maior ou igual)")
+        }
+        else {
+            props.onSubmit({ search: search, type: Type })
+            console.log("header", props)
+            history.push("/pesquisar")
+        }
     }
+
     function handleChange(e) {
         const { target } = e
         SetSearch(target.value)

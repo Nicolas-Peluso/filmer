@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegStar } from "react-icons/fa";
-import bubble from "./bubbles";
 export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
@@ -43,7 +42,6 @@ function Main(props) {
     <section className="container">
 
       <h1>lançamentos</h1>
-      {list && bubble()}
       {list && list.map((item) => (
         <ul className="poster" key={item.id}>
           <li key={item.id}>
