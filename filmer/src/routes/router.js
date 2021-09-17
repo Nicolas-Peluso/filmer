@@ -31,6 +31,7 @@ function Rotas() {
     const [page, setPage] = useState(undefined)
     const [cast, setCast] = useState(undefined)
     const [MoreImages, setMoreImages] = useState(undefined)
+    const [PersonCredit, setPersonCredit] = useState(undefined)
 
     useEffect(() => SetData(page), [page])
 
@@ -46,6 +47,12 @@ function Rotas() {
         api.getingMoviesCredit(id).then(e => {
             setCast(e)
 
+        })
+    }
+
+    const GetingPersonMovies = (personID) => {
+        api.GetingPersonMovies(personID).then(e => {
+            setPersonCredit(e)
         })
     }
 
@@ -122,18 +129,19 @@ function Rotas() {
                     <Route path="/detail">
                         <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
                             FromInsideMovie={GetMovieId} FromInsidevideo={GetVideosForDetail} FromInsidecredits={GetingMovieCredits}
-                            FromIsidesimilar={getingSimilarMovies}
+                            FromIsidesimilar={getingSimilarMovies} pessoa={GetPerson} personCredits={GetingPersonMovies}
                         />
                     </Route>
 
                     <Route path="/pessoa">
                         <ContextObjet.Provider value={PersonData}>
-                            <PersonPage />
+                            <PersonPage personCredits={PersonCredit} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} />
                         </ContextObjet.Provider>
                     </Route>
 
                     <Route path="/pesquisar">
-                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch} video={GetVideosForDetail} credits={GetingMovieCredits} />
+                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch}
+                            video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} personCredits={GetingPersonMovies} />
                     </Route>
 
                     <Route path="/series">

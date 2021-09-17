@@ -14,7 +14,7 @@ export default function DetailSeries(props) {
       <>
         <div className={Style.Seriesdetail}>
           <div className={Style.imgContainer} key="1">
-            <img src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`} alt="" key="2" />
+            <img src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`} alt="desculpe nao foi possivel carregar a imagem" key="2" />
             <p key={Math.random()}>{seriado.overview}</p>
           </div>
           <ul className={Style.ListaDeCriadores} key="3">
@@ -46,7 +46,7 @@ export default function DetailSeries(props) {
             {seriado.production_companies.map(compani => (
               <>
                 <li key={compani.name}><p>{compani.name}</p></li>
-                <li key={compani.id}><img src={`https://image.tmdb.org/t/p/w500/${compani.logo_path}`} alt="" /></li>
+                <li key={compani.id}><img src={`https://image.tmdb.org/t/p/w500/${compani.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" /></li>
               </>
             ))}
           </ul>
@@ -54,7 +54,7 @@ export default function DetailSeries(props) {
           {seriado.networks.map(network => (
 
             <ul className={Style.networks}><h1>network(s):</h1>
-              <li key={network.id}><p key={Math.random()}>Nome: {network.name}</p><img key={network.logo_path} src={`https://image.tmdb.org/t/p/w500/${network.logo_path}`} alt="" /></li>
+              <li key={network.id}><p key={Math.random()}>Nome: {network.name}</p><img key={network.logo_path} src={`https://image.tmdb.org/t/p/w500/${network.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" /></li>
             </ul>
           ))}
         </div>
@@ -62,7 +62,7 @@ export default function DetailSeries(props) {
           {seriado.seasons.map(tempo => (
             <>
               <div className={Style.Inside}>
-                <img key={tempo.id} src={`https://image.tmdb.org/t/p/w500/${tempo.poster_path}`} alt="" />
+                <img key={tempo.id} src={`https://image.tmdb.org/t/p/w500/${tempo.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" />
                 <p key={tempo.id + Math.random()}>Nome da temporada: {tempo.name}</p>
                 <p key={tempo.name}>{tempo.overview}</p>
                 <p key={tempo.episode_count}>quantia de pesiodios: {tempo.episode_count}</p>

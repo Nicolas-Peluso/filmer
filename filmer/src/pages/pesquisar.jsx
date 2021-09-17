@@ -21,7 +21,7 @@ export default function Pesquisar(props) {
                     ? item.poster_path
                     : item.profile_path
                     }`}
-                  alt=""
+                  alt="desculpe nao foi possivel carregar a imagem"
                 />
                 <p className={Style.descricao}>
                   {item.overview !== undefined
@@ -43,12 +43,15 @@ export default function Pesquisar(props) {
                 }>
                   <button
                     onClick={() => {
-                      if (item.known_for)
+                      if (item.known_for) {
                         props.pessoa(item.id)
+                        props.personCredits(item.id);
+                      }
                       else if (item.release_date) {
                         props.movie(item.id)
                         props.video(item.id)
                         props.credits(item.id)
+                        props.similar(item.id);
                       }
                       else
                         props.serieId(item.id)

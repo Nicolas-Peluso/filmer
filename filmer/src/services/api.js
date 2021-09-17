@@ -16,6 +16,15 @@ const servicesApi = {
         let Data = await response
         return Data
     },
+
+    async GetingPersonMovies(id) {
+        console.log(id)
+        let request = fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apiKey}&language=en-US`)
+        let response = (await request).json()
+        let Data = await response
+        return Data
+    },
+
     async onSearchSubmit(search) {
         let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=pt-BR&query=${search.search}&page=${"1"}&include_adult=false`)
         let response = (await request).json()

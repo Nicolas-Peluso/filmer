@@ -16,7 +16,7 @@ export default function Favorito(props) {
                     <li key={item.id}>
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                            alt=""
+                            alt="desculpe nao foi possivel carregar a imagem"
                         />
                         <p className={Styled.descrição}>{item.overview}</p>
                         <Link to="/detail">
