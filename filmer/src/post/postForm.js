@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-//import { apiKey } from "../components/main"
+
 import getSessionID from "./GetSessionID"
 import "./stylePost.css"
 export default function FormPost() {

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import Styled from "./header.module.css"
 import "./style.css"
-import { FaFacebookF, FaInstagram } from "react-icons/fa"
 import { Route, Link, useHistory } from "react-router-dom"
 
 function Header(props) {
+    console.log(Styled)
     const [search, SetSearch] = useState("")
     const [Type, SetType] = useState("movie")
     const warningKey = ["<", ">", "<>", "'", "''"]
@@ -26,23 +27,22 @@ function Header(props) {
         SetSearch(target.value)
     }
     return (
-        <nav>
+        <nav className={Styled.Nav}>
             <Route path="/detail">
                 <Voltar />
             </Route>
 
-            <form className="search" onSubmit={handleSubit}>
+            <form className={Styled.search} onSubmit={handleSubit}>
                 <input type="input" name="search" id="search" onChange={handleChange} placeholder={`pesquisar por `} />
-                <select id="" onChange={e => SetType(e.target.value)}>
+                <select onChange={e => SetType(e.target.value)}>
                     <option value="movie">filme</option>
                     <option value="tv">serie</option>
                     <option value="person">pessoa</option>
                 </select>
-                <button type="submit" className="searchIcon" >pesquisar</button>
-
+                <button type="submit">pesquisar</button>
             </form>
 
-            <ul className="ulNav">
+            <ul className={Styled.ulNav}>
                 <li key={-1}>
                     <Link to="/Create/List">criar Lista</Link>
                 </li>
@@ -58,11 +58,6 @@ function Header(props) {
                 <li key={3}>
                     <Link to="/series">series</Link>
                 </li>
-
-                <div className="iconsSocialMedia">
-                    <FaFacebookF className="media facebook" />
-                    <FaInstagram className="media instagram" />
-                </div>
 
             </ul>
         </nav>

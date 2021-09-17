@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import styled from "./paginationNumber.module.css"
 
 export default function PageNationControls(props) {
   const [paginas, setPaginas] = useState(undefined);
@@ -19,10 +20,10 @@ export default function PageNationControls(props) {
   return !paginas ? (
     ""
   ) : (
-    <div id="paginate">
-      <div className="controls">
+    <div className={styled.paginate}>
+      <div className={styled.controls}>
         <button
-          className="first"
+          className={styled.first}
           onClick={() => {
             setActualPage(1);
           }}
@@ -31,7 +32,7 @@ export default function PageNationControls(props) {
         </button>
 
         <button
-          className="prev"
+          className={styled.prev}
           onClick={() => {
             actualpage <= 1
               ? setActualPage(1)
@@ -41,7 +42,7 @@ export default function PageNationControls(props) {
           {"<"}
         </button>
 
-        <div className="numbers">
+        <div className={styled.numbers}>
           <div>
             {actualpage} ate {paginas}
           </div>
@@ -49,7 +50,7 @@ export default function PageNationControls(props) {
 
         <button
           type="button"
-          className="next"
+          className={styled.next}
           onClick={() => {
             actualpage >= paginas
               ? setActualPage(paginas)
@@ -60,7 +61,7 @@ export default function PageNationControls(props) {
         </button>
 
         <button
-          className="last"
+          className={styled.last}
           onClick={() => {
             setActualPage(paginas);
           }}

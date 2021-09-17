@@ -1,166 +1,89 @@
 import React from "react";
 import { takevote } from "../components/main";
+import Style from "./seriesDetail.module.css"
 
 export default function DetailSeries(props) {
+  console.log(props)
+  const seriado = props.seriado;
   const none = () => {
     return <></>;
   };
   const OnPropsOk = () => {
-    const seriado = props.seriado;
+
     return (
-      <div className="Seriesdetail">
-        <div className="imageSeriesDetail">
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`}
-            alt=""
-            className="backGroundPoster"
-          />
-          <div
-            style={{
-              backgroundColor: takevote(seriado.vote_average),
-              borderTop: "5px solid transparent",
-            }}
-            className="detailVotesSeriesDetail"
-          >
-            <div>{seriado.vote_average}</div>
+      <>
+        <div className={Style.Seriesdetail}>
+          <div className={Style.imgContainer} key="1">
+            <img src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`} alt="" key="2" />
+            <p key={Math.random()}>{seriado.overview}</p>
           </div>
-        </div>
-        <div className="serieDetailContainerText">
-          <p>{seriado.overview}</p>
-          <ul>
-            <li>
-              criado por{" "}
-              <span style={{ color: "white" }}>
-                {seriado.created_by.map((c) => c.name)}
-              </span>
-            </li>
-            <br />
-            <li>
-              data de estreia{" "}
-              <span style={{ color: "white" }}>{seriado.first_air_date}</span>
-            </li>
-            <br />
-            <li>
-              status{" "}
-              <span style={{ color: "white" }}>
-                {seriado.in_production ? "em produção" : "encerrado"}
-              </span>
-            </li>{" "}
-            <br />
-            <li>
-              lingua original{" "}
-              <span style={{ color: "white" }}>"{seriado.languages[0]}"</span>
-            </li>
-            <br />
-            <li>
-              ultimo lançamento em:{" "}
-              <span style={{ color: "white" }}>{seriado.last_air_date}</span>
-            </li>{" "}
-            <br />
-            <li className="network">
-              networks :{" "}
-              {seriado.networks.map((net, i) => (
-                <>
-                  <span style={{ color: "white" }} key={net.name}>
-                    {net.name}
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${net.logo_path}`}
-                      alt=""
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        borderRadius: "50%",
-                      }}
-                      key={i}
-                    />
-                  </span>
-                </>
-              ))}
-            </li>{" "}
-            <br />
-            <li>
-              quantidade de episodios:{" "}
-              {seriado.in_production ? "ate o momento" : ""}{" "}
-              <span style={{ color: "white" }}>
-                {seriado.number_of_episodes}
-              </span>
-            </li>{" "}
-            <br />
-            <li>
-              nome original:{" "}
-              <span style={{ color: "white" }}>{seriado.original_name}</span>
-            </li>{" "}
-            <br />
-            <li>
-              produtora:{" "}
-              {seriado.production_companies.map((compane, i) => (
-                <>
-                  <span style={{ color: "white" }} key={compane.name}>
-                    {compane.name}
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500/${compane.logo_path}`}
-                      alt=""
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                      key={i}
-                    />
-                  </span>
-                </>
-              ))}
-            </li>
-            <br />
-            <li>
-              pais de produção{" "}
-              {seriado.production_countries.map((cou) => (
-                <span key={cou.name}>{cou.name}</span>
-              ))}
-            </li>{" "}
-            <br /> <br />
-            <li>
-              <span style={{ color: "white" }}>TEMPORADAS:</span> <br />{" "}
-              {seriado.seasons.map((season, i) => (
-                <div key={season.name}>
-                  <div key={i}>
-                    data de lançamento{" "}
-                    <span style={{ color: "white" }} key={i + 2}>{season.air_date}</span>
-                  </div>{" "}
-                  <br />
-                  <div key={i + 1}>
-                    nome da temporada{" "}
-                    <span style={{ color: "white" }} key={i + 3}>{season.name}</span>
-                  </div>
-                  <br />
-                  <div key={i + 4}>
-                    quantia de episodios{" "}
-                    {
-                      <span style={{ color: "white" }} key={i + 5}>
-                        {season.episode_count}
-                      </span>
-                    }
-                  </div>
-                  <br />
-                  <div key={i + 6}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500/${season.poster_path}`}
-                      alt=""
-                      style={{
-                        width: "600px",
-                        height: "600px",
-                        borderRadius: "",
-                      }}
-                      key={i + 7}
-                    />
-                  </div>
-                  <br />
-                </div>
-              ))}
-            </li>
+          <ul className={Style.ListaDeCriadores} key="3">
+            {seriado.created_by.map(create => (
+              <li key={create.id}>
+                <p key={create.name}>criado por: {create.name}</p>
+                <img src={`https://image.tmdb.org/t/p/w500/${create.profile_path}`} alt="nao foi possivel carregar a imagem" key={create.id + Math.random()} />
+              </li>
+            ))}
           </ul>
+          <ul className={Style.InfoGeneral} key="4">
+            <li key="5">
+              <h1 key="6" className={Style.Titulo}>{seriado.name}</h1>
+            </li>
+            <li key="7">
+              <p>Data de estreia: {seriado.first_air_date}</p>
+            </li>
+            <li key="8">
+              <p>Status: {seriado.in_production ? "em produção" : "encerrado"}</p>
+            </li>
+            {seriado.last_air_date && <li key="9"><p key="10">ultimo episodio: {seriado.last_air_date}</p></li>}
+            {seriado.genres.map(genero => (
+              <li key={genero.id}>{genero.name}</li>
+            ))}
+            {seriado.next_episode_to_air && <><li key={Math.random()}>proximo episodio: {seriado.next_episode_to_air.air_date}</li>
+              <li key="22">Numeros de epsódios:{seriado.next_episode_to_air.number_of_episodes}</li>
+              <li key="23">Numeros de temporadas:{seriado.next_episode_to_air.number_of_seasons}</li>
+            </>}
+            {seriado.production_companies.map(compani => (
+              <>
+                <li key={compani.name}><p>{compani.name}</p></li>
+                <li key={compani.id}><img src={`https://image.tmdb.org/t/p/w500/${compani.logo_path}`} alt="" /></li>
+              </>
+            ))}
+          </ul>
+
+          {seriado.networks.map(network => (
+
+            <ul className={Style.networks}><h1>network(s):</h1>
+              <li key={network.id}><p key={Math.random()}>Nome: {network.name}</p><img key={network.logo_path} src={`https://image.tmdb.org/t/p/w500/${network.logo_path}`} alt="" /></li>
+            </ul>
+          ))}
         </div>
-      </div>
+        <div className={Style.SlideSeason}>
+          {seriado.seasons.map(tempo => (
+            <>
+              <div className={Style.Inside}>
+                <img key={tempo.id} src={`https://image.tmdb.org/t/p/w500/${tempo.poster_path}`} alt="" />
+                <p key={tempo.id + Math.random()}>Nome da temporada: {tempo.name}</p>
+                <p key={tempo.name}>{tempo.overview}</p>
+                <p key={tempo.episode_count}>quantia de pesiodios: {tempo.episode_count}</p>
+                <p key={tempo.air_date}>Lançou: {tempo.air_date}</p>
+              </div>
+
+            </>
+          ))}
+        </div>
+        {seriado.last_episode_to_air &&
+          <ul className={Style.LastEpisodi}>
+            <h1>ultima temporada lançada</h1>
+            <li key="11"><p key="12">data de estreia: {seriado.last_episode_to_air.air_date}</p></li>
+            <li key="13"><p key="14">episodio numero: {seriado.last_episode_to_air.episode_number}</p></li>
+            <li key="15"><p key="16">Nome: {seriado.last_episode_to_air.name}</p></li>
+            <li key="17"><p key="18">descrição: {seriado.last_episode_to_air.overview}</p></li>
+            <li key="19"><p key="20">temporada: {seriado.last_episode_to_air.season_number}</p></li>
+            <li key="21"><img key="22" src={`https://image.tmdb.org/t/p/w500/${seriado.last_episode_to_air.still_path}`} /></li>
+          </ul>
+        }
+      </>
     );
   };
   return !props.seriado ? none() : OnPropsOk();

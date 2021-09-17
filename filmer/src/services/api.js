@@ -1,7 +1,21 @@
-import { apiKey } from "../components/main"
+export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 
 const servicesApi = {
 
+    async getingMoviesCredit(id) {
+        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=pt-br`)
+        let response = (await request).json()
+        let Data = await response
+        return Data
+    },
+
+    async getingSimilarMovies(id) {
+        console.log(id)
+        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${apiKey}&language=en-US&page=1`)
+        let response = (await request).json()
+        let Data = await response
+        return Data
+    },
     async onSearchSubmit(search) {
         let request = fetch(`https://api.themoviedb.org/3/search/${search.type}?api_key=${apiKey}&language=pt-BR&query=${search.search}&page=${"1"}&include_adult=false`)
         let response = (await request).json()

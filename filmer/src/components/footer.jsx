@@ -1,8 +1,9 @@
 import React from "react";
+import Styled from "./footer.module.css"
 
 function Footer(props) {
   return (
-    <footer>
+    <footer className={Styled.footer}>
       <a href="https://www.themoviedb.org/" target="_blank" rel="noreferrer">
         api usada
       </a>

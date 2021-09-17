@@ -2,19 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { takevote } from "../components/main";
 import PageNationControls from "../components/paginationNumber";
-
+import Style from "./pesquisar.module.css"
 export default function Pesquisar(props) {
 
   return (
     <>
       {props.data && <>
         <PageNationControls TotalPage={props.TotalPage} page={props.page} />
-        <section className="container">
+        <section className={Style.container}>
 
           <h1>pesquisa:</h1>
 
           {props.data.results.map((item) => (
-            <ul className="poster" key={item.id}>
+            <ul className={Style.poster} key={item.id}>
               <li key={item.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${item.poster_path !== undefined
@@ -23,7 +23,7 @@ export default function Pesquisar(props) {
                     }`}
                   alt=""
                 />
-                <p className="pR">
+                <p className={Style.descricao}>
                   {item.overview !== undefined
                     ? item.overview
                     : "conecido por  " + item.known_for_department}
@@ -45,8 +45,11 @@ export default function Pesquisar(props) {
                     onClick={() => {
                       if (item.known_for)
                         props.pessoa(item.id)
-                      else if (item.release_date)
+                      else if (item.release_date) {
                         props.movie(item.id)
+                        props.video(item.id)
+                        props.credits(item.id)
+                      }
                       else
                         props.serieId(item.id)
                     }}

@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import Main from "../components/main";
 import Detail from "../pages/detail";
-import { apiKey } from "../components/main";
+import { apiKey } from "../services/api";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Pesquisar from "../pages/pesquisar";
 import SeriesChooseGenders from "../components/seriesChooseGender";
@@ -29,8 +29,25 @@ function Rotas() {
     const [Type, setGetType] = useState(undefined)
     const [PersonData, setPerson] = useState(undefined)
     const [page, setPage] = useState(undefined)
+    const [cast, setCast] = useState(undefined)
+    const [MoreImages, setMoreImages] = useState(undefined)
 
     useEffect(() => SetData(page), [page])
+
+
+    const getingSimilarMovies = (id) => {
+        api.getingSimilarMovies(id).then(e => {
+            setMoreImages(e)
+            console.log("do")
+        })
+    }
+
+    const GetingMovieCredits = (id) => {
+        api.getingMoviesCredit(id).then(e => {
+            setCast(e)
+
+        })
+    }
 
     const FromHeader = (search) => {
         setGetingQuerryFromHeader(search.search)
@@ -99,13 +116,14 @@ function Rotas() {
                         <FormPost />
                     </Route>
                     <Route exact path="/">
-                        <Main movie={GetMovieId} video={GetVideosForDetail} />
+                        <Main movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} />
                     </Route>
 
                     <Route path="/detail">
-                        <ContextObjet.Provider value={{ movie: movieDetail, video: VideosForDetail }}>
-                            <Detail />
-                        </ContextObjet.Provider>
+                        <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
+                            FromInsideMovie={GetMovieId} FromInsidevideo={GetVideosForDetail} FromInsidecredits={GetingMovieCredits}
+                            FromIsidesimilar={getingSimilarMovies}
+                        />
                     </Route>
 
                     <Route path="/pessoa">
@@ -115,12 +133,12 @@ function Rotas() {
                     </Route>
 
                     <Route path="/pesquisar">
-                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch} />
+                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch} video={GetVideosForDetail} credits={GetingMovieCredits} />
                     </Route>
 
                     <Route path="/series">
-                        <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
                         <SeriesChooseGenders QuerySeries={getSeries} />
+                        <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
                         <Series series={series} serieId={getSeriesForDetail} />
                     </Route>
 

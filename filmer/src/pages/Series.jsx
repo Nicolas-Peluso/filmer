@@ -1,6 +1,7 @@
 import React from "react";
 import { takevote } from "../components/main";
 import { Link } from "react-router-dom";
+import Style from "./Series.module.css"
 
 export default function Series(props) {
   console.log("props series", props);
@@ -8,16 +9,16 @@ export default function Series(props) {
   const OnPropsOk = () => {
     return (
       <>
-        <section className="container">
+        <section className={Style.container}>
           <h1>SERIES</h1>
           {props.series.results.map((item) => (
-            <ul className="poster" key={item.id}>
+            <ul className={Style.poster} key={item.id}>
               <li key={item.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
                   alt=""
                 />
-                <p>{item.overview}</p>
+                <p className={Style.descricao}>{item.overview}</p>
                 <Link to="/serie/detail">
                   <button
                     onClick={() => {
@@ -32,7 +33,7 @@ export default function Series(props) {
                     backgroundColor: takevote(item.vote_average),
                     borderTop: "5px solid transparent",
                   }}
-                  className="votacion"
+                  className={Style.votacion}
                 >
                   <div>{item.vote_average}</div>
                 </div>

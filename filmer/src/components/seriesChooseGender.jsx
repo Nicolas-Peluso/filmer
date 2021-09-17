@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { apiKey } from "./main"
+import { apiKey } from "../services/api";
 import { useHistory } from "react-router"
+import Styled from "./seriesChooseGender.module.css"
 
 export default function SeriesChooseGenders(props) {
     const [lista, SetLista] = useState([])
@@ -19,11 +20,11 @@ export default function SeriesChooseGenders(props) {
 
     return (
 
-        <section className="containerSeries">
-            <h1 className="tituloSeries">Generos</h1>
+        <section className={Styled.containerSeries}>
+            <h1 className={Styled.tituloSeries}>Generos</h1>
             {
                 lista.map(item => (
-                    <div className="childSeries" onClick={() => {
+                    <div className={Styled.childSeries} onClick={() => {
                         props.QuerySeries(item.name)
                         history.push("/series")
                     }} key={item.name}>

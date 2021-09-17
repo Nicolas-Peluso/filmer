@@ -1,0 +1,59 @@
+.container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    margin: 0 0 0 50px;
+    grid-gap: 50px;
+  }
+  .container h1 {
+    grid-column: 1 / 4;
+    margin: 50px auto;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-family: serif, "Courier New", Courier, monospace;
+    letter-spacing: 0.2em;
+  }
+  
+  .container ul {
+    list-style: none;
+    max-width: 500px;
+    background-color: rgb(0, 0, 0);
+    position: relative;
+  }
+  
+  .container ul li .descricao {
+    position: absolute;
+    top: 0%;
+    font-size: 1.4em;
+    color: white;
+    opacity: 0;
+    transition: 0.5s;
+    display: block;
+  }
+  .container ul li img {
+    transition: 1s;
+  }
+  .container ul li button {
+    padding: 18px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    color: white;
+    font-size: 1em;
+    background: linear-gradient(90deg, #aa00ff, #f200ff);
+    transition: 1s;
+  }
+  .container ul li button:hover {
+    background: linear-gradient(90deg, #cb62ff, #f648ff);
+  }
+  .container ul:hover .descricao {
+    opacity: 1;
+  }
+  .container ul:hover img {
+    opacity: 0.3;
+  }
