@@ -147,12 +147,12 @@
   opacity: 1;
 }
 
-.slide ul:hover img{
+.slide ul:hover img{ 
   transition: .5s;
   opacity: .3;
 
 }
 
-.imagemss{
+.imagemss{  
   border: 5px solid red;
 }

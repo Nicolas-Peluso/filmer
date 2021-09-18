@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "./detail.module.css"
 import { useHistory } from "react-router";
@@ -13,20 +13,23 @@ function quantidadeDePessoasQueVotarao(votosPessoas) {
 
 function Detail(props) {
     const Def = () => {
-        const history = useHistory()
-        let count = 0
+        const history = useHistory();
+        let count = 0;
+        const er = props.MoreImages;
 
         function handleClick() {
             const r = document.querySelectorAll("img.imagem")
-            r.forEach(image => image.classList.remove(styled.ativo))
+            r.forEach(image => image.classList.remove(styled.ativo));
             if (count >= r.length - 1)
-                count = 0
+                count = 0;
 
             if (count < 0)
-                count = r.length - 1
+                count = r.length - 1;
 
-            r[count].classList.add(styled.ativo)
+            r[count].classList.add(styled.ativo);
         }
+
+        useEffect(() => handleClick(), [er])
 
         return (
             <>
@@ -39,7 +42,7 @@ function Detail(props) {
                                 {props.MoreImages &&
                                     props.MoreImages.backdrops.map(image => (
                                         <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt="desculpe nao foi possivel acessar essa imagem"
-                                            className="imagem" />
+                                            className="imagem detail_ativo__2Hq9m" />
                                     ))
 
                                 }
@@ -47,11 +50,11 @@ function Detail(props) {
                                     count -= 1
                                     handleClick()
                                 }}>anterior</button>
-                                <button className={styled.proximo}
-                                    onClick={() => {
-                                        count += 1
-                                        handleClick()
-                                    }}
+
+                                <button className={styled.proximo} onClick={() => {
+                                    count += 1
+                                    handleClick()
+                                }}
                                 >proximo</button>
                             </div>
                             <div className={styled.ContainerText} key={i + 6}>
@@ -96,8 +99,7 @@ function Detail(props) {
                                             props.FromIsidesimilar(SimilarMovie.id);
                                             props.FromMoreImages(SimilarMovie.id);
                                         }}
-                                    >
-                                        ver mais
+                                    >ver mais
                                     </button>
                                 </Link>
                             </li>
@@ -107,7 +109,6 @@ function Detail(props) {
             </>
         )
     }
-
     return props.movie && props.credits ? Def() : <></>
 }
 

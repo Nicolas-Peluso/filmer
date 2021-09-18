@@ -4,9 +4,8 @@ import Style from "./seriesDetail.module.css"
 export default function DetailSeries(props) {
   console.log(props)
   const seriado = props.seriado;
-  const none = () => {
-    return <></>;
-  };
+  const none = () => <></>;
+
   const OnPropsOk = () => {
 
     return (
