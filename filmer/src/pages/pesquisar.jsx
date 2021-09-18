@@ -52,11 +52,11 @@ export default function Pesquisar(props) {
                         props.video(item.id)
                         props.credits(item.id)
                         props.similar(item.id);
+                        props.MoreImages(item.id);
                       }
                       else
                         props.serieId(item.id)
                     }}
-
                   >
                     ver mais
                   </button>

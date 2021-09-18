@@ -58,3 +58,18 @@
   .container ul:hover img {
     opacity: 0.3;
   }
+
+  .typeWirite::after{
+    content: "|";
+    font-size: 1.5em;
+    animation: pisca 1s linear infinite;
+  }
+
+  @keyframes pisca {
+    0%, 100%{
+      opacity: 1;
+    }
+    50%{
+      opacity: 0;
+    }
+  }

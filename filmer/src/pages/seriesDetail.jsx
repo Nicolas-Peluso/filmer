@@ -1,5 +1,4 @@
 import React from "react";
-import { takevote } from "../components/main";
 import Style from "./seriesDetail.module.css"
 
 export default function DetailSeries(props) {
@@ -36,6 +35,7 @@ export default function DetailSeries(props) {
               <p>Status: {seriado.in_production ? "em produção" : "encerrado"}</p>
             </li>
             {seriado.last_air_date && <li key="9"><p key="10">ultimo episodio: {seriado.last_air_date}</p></li>}
+            <h1>Generô</h1>
             {seriado.genres.map(genero => (
               <li key={genero.id}>{genero.name}</li>
             ))}
@@ -43,6 +43,7 @@ export default function DetailSeries(props) {
               <li key="22">Numeros de epsódios:{seriado.next_episode_to_air.number_of_episodes}</li>
               <li key="23">Numeros de temporadas:{seriado.next_episode_to_air.number_of_seasons}</li>
             </>}
+            <h1>produtor(as)</h1>
             {seriado.production_companies.map(compani => (
               <>
                 <li key={compani.name}><p>{compani.name}</p></li>
@@ -80,7 +81,7 @@ export default function DetailSeries(props) {
             <li key="15"><p key="16">Nome: {seriado.last_episode_to_air.name}</p></li>
             <li key="17"><p key="18">descrição: {seriado.last_episode_to_air.overview}</p></li>
             <li key="19"><p key="20">temporada: {seriado.last_episode_to_air.season_number}</p></li>
-            <li key="21"><img key="22" src={`https://image.tmdb.org/t/p/w500/${seriado.last_episode_to_air.still_path}`} /></li>
+            <li key="21"><img key="22" src={`https://image.tmdb.org/t/p/w500/${seriado.last_episode_to_air.still_path}`} alt="desculpe nao foi possivel carregar a imagem" /></li>
           </ul>
         }
       </>

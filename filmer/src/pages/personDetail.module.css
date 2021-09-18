@@ -98,3 +98,10 @@
   opacity: .3;
 
 }
+
+.TextNomeActor{
+  text-align: center;
+  font-family: serif, Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: lighter;
+  
+}

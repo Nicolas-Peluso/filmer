@@ -18,6 +18,7 @@ export default function SeriesChooseGenders(props) {
     }, [])
 
 
+
     return (
 
         <section className={Styled.containerSeries}>

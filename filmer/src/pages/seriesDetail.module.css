@@ -23,7 +23,7 @@
     width: 100%;
     overflow-x: scroll;
     margin: 50px;
-    
+
 }
 .ListaDeCriadores li{
     list-style: none;
@@ -31,9 +31,11 @@
 }
 .ListaDeCriadores li img{
     box-shadow: 2px 2px 10px black;
+    margin: 0px 8px;
 }
 .ListaDeCriadores li p{
     font-size: 2em;
+    text-align: center;
 }
 .InfoGeneral{
     margin: 20px;

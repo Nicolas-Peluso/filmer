@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { takevote } from "../components/main";
 import { Link } from "react-router-dom";
 import Style from "./Series.module.css"
@@ -6,11 +6,30 @@ import Style from "./Series.module.css"
 export default function Series(props) {
   console.log("props series", props);
 
+  const [letra, setLetra] = useState("")
+
+  useEffect(() => {
+    function typeWirite() {
+      let elemento = "series"
+      const arrayLetras = elemento.split("")
+      let TepLetra = "";
+      arrayLetras.forEach((letsra, i) => {
+        setTimeout(() => {
+          TepLetra += letsra
+          setLetra(TepLetra)
+        }, 150 * i)
+      })
+    } typeWirite()
+  }, [])
+
+
+
+
   const OnPropsOk = () => {
     return (
       <>
         <section className={Style.container}>
-          <h1>SERIES</h1>
+          <h1 className={Style.typeWirite}>{letra}</h1>
           {props.series.results.map((item) => (
             <ul className={Style.poster} key={item.id}>
               <li key={item.id}>

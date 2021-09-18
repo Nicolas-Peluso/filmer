@@ -9,7 +9,7 @@ export default function PersonPage(props) {
   const def = () => <h1>eres idiota tico</h1>;
   ;
   const perosnDetailRight = () => {
-    console.log(props)
+    console.log(context)
     return (
       <div className={Style.containerPessoa}>
         <ul className={Style.OtherNames}>
@@ -41,6 +41,7 @@ export default function PersonPage(props) {
             </p>
           </div>
         </div>
+        <h1 className={Style.TextNomeActor}>Filmes que {context.name} participou</h1>
         <div className={Style.slide}>
           {props.personCredits && props.personCredits.cast.map(filme => (
             <ul key={Math.random()} className={Style.container}>

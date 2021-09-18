@@ -6,6 +6,22 @@ export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
 function Main(props) {
   const [list, Setlist] = useState(undefined);
+  const [letra, setLetra] = useState("")
+
+
+  useEffect(() => {
+    function typeWirite() {
+      let elemento = "lançamentos:";
+      const arrayLetras = elemento.split("")
+      let TempLetra = ""
+      arrayLetras.forEach((letsra, i) => {
+        setTimeout(() => {
+          TempLetra += letsra
+          setLetra(TempLetra)
+        }, 75 * i)
+      })
+    } typeWirite()
+  }, [])
 
   useEffect(() => {
     async function fetchData() {
@@ -16,11 +32,10 @@ function Main(props) {
     }
     fetchData();
   }, []);
-
   return (
     <section className={Styled.container}>
 
-      <h1>lançamentos:</h1>
+      <h1 className={Styled.typeWirite}>{letra}</h1>
       {list && list.map((item) => (
         <ul className={Styled.poster} key={item.id}>
           <li key={item.id}>
@@ -37,6 +52,7 @@ function Main(props) {
                   props.video(item.id);
                   props.credits(item.id);
                   props.similar(item.id);
+                  props.MoreImages(item.id)
                 }}
               >
                 ver mais

@@ -11,7 +11,7 @@ const servicesApi = {
 
     async getingSimilarMovies(id) {
         console.log(id)
-        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${apiKey}&language=en-US&page=1`)
+        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${apiKey}&language=pt-BR&page=1`)
         let response = (await request).json()
         let Data = await response
         return Data
@@ -19,7 +19,7 @@ const servicesApi = {
 
     async GetingPersonMovies(id) {
         console.log(id)
-        let request = fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apiKey}&language=en-US`)
+        let request = fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apiKey}&language=pt-BR`)
         let response = (await request).json()
         let Data = await response
         return Data
@@ -62,6 +62,13 @@ const servicesApi = {
     },
     async person(id) {
         let request = fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}&language=pt-BR`)
+        let response = (await request).json()
+        let Data = (await response)
+        return Data
+    },
+
+    async GetingColectionImages(id) {
+        let request = fetch(`https://api.themoviedb.org/3/movie/${id}/images?api_key=${apiKey}&language=pt-BR&include_image_language=pt,null`)
         let response = (await request).json()
         let Data = (await response)
         return Data
