@@ -16,17 +16,20 @@ function Detail(props) {
         const history = useHistory();
         let count = 0;
         const er = props.MoreImages;
-
+        console.log("detail", props)
         function handleClick() {
             const r = document.querySelectorAll("img.imagem")
-            r.forEach(image => image.classList.remove(styled.ativo));
+            if (r.length)
+                r.forEach(image => image.classList.remove(styled.ativo));
+
             if (count >= r.length - 1)
                 count = 0;
 
             if (count < 0)
                 count = r.length - 1;
 
-            r[count].classList.add(styled.ativo);
+            if (r.length)
+                r[count].classList.add(styled.ativo);
         }
 
         useEffect(() => handleClick(), [er])
@@ -39,12 +42,11 @@ function Detail(props) {
                             <div className={styled.containerImg} key={props.movie.movie_results.id} >
                                 <h1>{item.original_title}</h1>
 
-                                {props.MoreImages &&
+                                {props.MoreImages && props.MoreImages.backdrops &&
                                     props.MoreImages.backdrops.map(image => (
                                         <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt="desculpe nao foi possivel acessar essa imagem"
                                             className="imagem detail_ativo__2Hq9m" />
                                     ))
-
                                 }
                                 <button className={styled.anterior} onClick={() => {
                                     count -= 1
@@ -68,44 +70,7 @@ function Detail(props) {
                         </>
                     ))}
                 </div>
-                <h1 className={styled.titlleList}>Atores:</h1>
-                <div className={styled.slide}>
-                    {props.credits.cast && props.credits.cast.map(pessoa => (
-                        <ul key={Math.random()}>
-                            <img src={`https://image.tmdb.org/t/p/w500/${pessoa.profile_path}`} alt="desculpe nao foi possivel carregar a imagem" />
-                            <p>{pessoa.name} COMO: {pessoa.character}</p>
-                            <button onClick={() => {
-                                props.pessoa(pessoa.id)
-                                props.personCredits(pessoa.id)
-                                history.push("/pessoa")
-                            }}
-                            >ver mais</button>
-                        </ul>
-                    ))}
-                </div>
-                <h1 className={styled.titlleList}>filmes similares:</h1>
-                <div className={styled.slide}>
-                    {props.similar && props.similar.results.map(SimilarMovie => (
-                        <ul key={Math.random()} className={styled.container}>
-                            <li>
-                                <img src={`https://image.tmdb.org/t/p/w500/${SimilarMovie.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" />
-                                <p className={styled.Description}>{SimilarMovie.overview}</p>
-                                <Link to="/detail">
-                                    <button
-                                        onClick={() => {
-                                            props.FromInsideMovie(SimilarMovie.id);
-                                            props.FromInsidevideo(SimilarMovie.id);
-                                            props.FromInsidecredits(SimilarMovie.id);
-                                            props.FromIsidesimilar(SimilarMovie.id);
-                                            props.FromMoreImages(SimilarMovie.id);
-                                        }}
-                                    >ver mais
-                                    </button>
-                                </Link>
-                            </li>
-                        </ul>
-                    ))}
-                </div>
+
             </>
         )
     }

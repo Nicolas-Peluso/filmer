@@ -15,6 +15,8 @@ import Favorito from "../pages/favorito";
 import api from "../services/api"
 import ContextObjet from "../context/Contexto";
 import FormPost from "../post/postForm";
+import Slide from "../components/Slide";
+
 function Rotas() {
 
     const [data, SetData] = useState(undefined)
@@ -35,23 +37,24 @@ function Rotas() {
 
     useEffect(() => SetData(page), [page])
 
-
     const getingSimilarMovies = (id) => {
         api.getingSimilarMovies(id).then(e => {
             setMoreImages(e)
+            console.log("dksdvk", e.results)
         })
     }
 
     const GetingMovieCredits = (id) => {
         api.getingMoviesCredit(id).then(e => {
             setCast(e)
-
+            console.log("eusou", e)
         })
     }
 
     const GetingPersonMovies = (personID) => {
         api.GetingPersonMovies(personID).then(e => {
             setPersonCredit(e)
+            console.log("personsss", e)
         })
     }
 
@@ -91,7 +94,6 @@ function Rotas() {
     const GetPerson = (id) => {
         api.person(id).then(data => {
             setPerson(data)
-
         })
     }
 
@@ -117,7 +119,6 @@ function Rotas() {
     }
 
     return (
-
         <>
             <Router>
                 <Header onSubmit={FromHeader} />
@@ -132,16 +133,21 @@ function Rotas() {
 
                     <Route path="/detail">
                         <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
-                            FromInsideMovie={GetMovieId} FromInsidevideo={GetVideosForDetail} FromInsidecredits={GetingMovieCredits}
-                            FromIsidesimilar={getingSimilarMovies} pessoa={GetPerson} personCredits={GetingPersonMovies}
-                            MoreImages={images} FromMoreImages={GetingImages}
+                            pessoa={GetPerson} personCredits={GetingPersonMovies}
+                            MoreImages={images}
                         />
+                        {MoreImages && <Slide Slide={MoreImages.results} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                            similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} />}
+                        {cast && <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} />}
                     </Route>
 
                     <Route path="/pessoa">
                         <ContextObjet.Provider value={PersonData}>
-                            <PersonPage personCredits={PersonCredit} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} />
+                            <PersonPage />
                         </ContextObjet.Provider>
+                        {PersonCredit && PersonData && <Slide Slide={PersonCredit.cast} tittle={PersonData.name} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                            similar={getingSimilarMovies} MoreImages={GetingImages} />}
+
                     </Route>
 
                     <Route path="/pesquisar">

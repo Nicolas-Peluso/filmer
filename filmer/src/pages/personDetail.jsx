@@ -9,7 +9,8 @@ export default function PersonPage(props) {
   const def = () => <h1>eres idiota tico</h1>;
   ;
   const perosnDetailRight = () => {
-    console.log(context)
+    console.log("context", context)
+    console.log("pessoas", props)
     return (
       <div className={Style.containerPessoa}>
         <ul className={Style.OtherNames}>
@@ -40,29 +41,6 @@ export default function PersonPage(props) {
               local de nascimento {context.place_of_birth}
             </p>
           </div>
-        </div>
-        <h1 className={Style.TextNomeActor}>Filmes que {context.name} participou</h1>
-        <div className={Style.slide}>
-          {props.personCredits && props.personCredits.cast.map(filme => (
-            <ul key={Math.random()} className={Style.container}>
-              <li>
-                <img src={`https://image.tmdb.org/t/p/w500/${filme.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" />
-                <p className={Style.Description}>{filme.overview}</p>
-                <Link to="/detail">
-                  <button
-                    onClick={() => {
-                      props.movie(filme.id);
-                      props.video(filme.id);
-                      props.credits(filme.id);
-                      props.similar(filme.id);
-                    }}
-                  >
-                    ver mais
-                  </button>
-                </Link>
-              </li>
-            </ul>
-          ))}
         </div>
       </div>
     );

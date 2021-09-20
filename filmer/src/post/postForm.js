@@ -4,14 +4,15 @@ import getSessionID from "./GetSessionID"
 import "./stylePost.css"
 export default function FormPost() {
 
-    const [ListName, setListName] = useState("")
-    const [Description, setDescription] = useState("")
-    const [Language, setLanguage] = useState("")
+    const [ListName, setListName] = useState(" ")
+    const [Description, setDescription] = useState(" ")
+    const [Language, setLanguage] = useState(" ")
     const [sessionID, setsessionID] = useState(() => {
         const HasSessionID = sessionStorage.getItem("session")
         return HasSessionID ? HasSessionID : null
     });
     const [Data, setData] = useState({})
+    const [border, setBorder] = useState(false)
     const NameRef = useRef()
     const DescRef = useRef()
     const LangRef = useRef()
@@ -42,12 +43,16 @@ export default function FormPost() {
               setData(data)*/
             setData({ nome: ListName, Descrissão: Description, idioma: Language })
             console.log(Data)
-
+            alert("esta tudo certo mas infelizamnete nao podemos criar listas com a api que estamos usado")
+            setListName("")
+            setDescription("")
         } else if (!ListName) {
             NameRef.current.focus()
+            setBorder(true)
         }
         else if (!Description) {
             DescRef.current.focus()
+            setBorder(true)
         }
         else if (!Language) {
             LangRef.current.focus()
@@ -63,7 +68,11 @@ export default function FormPost() {
                         ref={NameRef}
                         type="text"
                         value={ListName}
-                        onChange={e => setListName(e.target.value)}
+                        onChange={e => {
+                            setListName(e.target.value)
+                        }
+
+                        }
                     />
                 </label>
                 <label>
@@ -72,7 +81,10 @@ export default function FormPost() {
                         ref={DescRef}
                         rows="10"
                         value={Description}
-                        onChange={e => setDescription(e.target.value)}
+                        onChange={e => {
+                            setDescription(e.target.value)
+                            setBorder(false)
+                        }}
                     />
                 </label>
                 <label>
