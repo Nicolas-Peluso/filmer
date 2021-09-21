@@ -1,0 +1,24 @@
+.loading{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px solid rgb(255, 0, 0);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    animation: rota 1s linear infinite;
+    margin: auto;
+    position: relative;
+    right: -100%;
+}
+
+@keyframes rota {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    50%{
+        transform: rotateZ(80deg);
+    }
+    100% {
+        transform: rotateZ(190deg);
+    }
+}

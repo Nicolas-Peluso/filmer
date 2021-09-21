@@ -136,9 +136,9 @@ function Rotas() {
                             pessoa={GetPerson} personCredits={GetingPersonMovies}
                             MoreImages={images}
                         />
-                        {MoreImages && <Slide Slide={MoreImages.results} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
-                            similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} />}
-                        {cast && <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} />}
+                        {MoreImages ? <Slide Slide={MoreImages.results} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                            similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} /> : ""}
+                        {cast ? <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} /> : ""}
                     </Route>
 
                     <Route path="/pessoa">

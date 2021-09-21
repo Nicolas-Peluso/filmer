@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import ContextObjet from "../context/Contexto";
 import Style from "./personDetail.module.css"
 

@@ -1,37 +1,26 @@
 import Styled from "./main.module.css"
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { apiKey } from "../services/api";
+import Type from "./typeWrite";
+import api from "../services/api"
+import Loading from "./Loading";
 export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
 function Main(props) {
   const [list, Setlist] = useState(undefined);
-  const [letra, setLetra] = useState("")
-
+  const [loading, setLoading] = useState(true)
+  const { typeWirite, letra } = Type()
 
   useEffect(() => {
-    function typeWirite() {
-      let elemento = "lançamentos:";
-      const arrayLetras = elemento.split("")
-      let TempLetra = ""
-      arrayLetras.forEach((letsra, i) => {
-        setTimeout(() => {
-          TempLetra += letsra
-          setLetra(TempLetra)
-        }, 75 * i)
-      })
-    } typeWirite()
+    typeWirite("lançamentos")
+  }, [typeWirite])
+
+  useEffect(() => {
+    api.GetingDataForMain().then(e => {
+      Setlist(e.items)
+      setLoading(false)
+    })
   }, [])
-
-  useEffect(() => {
-    async function fetchData() {
-      let request = fetch(`https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`);
-      let response = (await request).json();
-      let data = await response;
-      Setlist(data.items);
-    }
-    fetchData();
-  }, []);
   return (
     <section className={Styled.container}>
 
@@ -43,7 +32,6 @@ function Main(props) {
               src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
               alt="desculpe nao foi possivel carregar a imagem"
             />
-
             <p className={Styled.descrição}>{item.overview}</p>
             <Link to="/detail">
               <button
@@ -73,6 +61,7 @@ function Main(props) {
           </li>
         </ul>
       ))}
+      {loading && <Loading />}
     </section>
   );
 }

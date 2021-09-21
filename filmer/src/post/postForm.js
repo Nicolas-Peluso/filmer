@@ -4,9 +4,9 @@ import getSessionID from "./GetSessionID"
 import "./stylePost.css"
 export default function FormPost() {
 
-    const [ListName, setListName] = useState(" ")
-    const [Description, setDescription] = useState(" ")
-    const [Language, setLanguage] = useState(" ")
+    const [ListName, setListName] = useState("")
+    const [Description, setDescription] = useState("")
+    const [Language, setLanguage] = useState("")
     const [sessionID, setsessionID] = useState(() => {
         const HasSessionID = sessionStorage.getItem("session")
         return HasSessionID ? HasSessionID : null
@@ -70,9 +70,11 @@ export default function FormPost() {
                         value={ListName}
                         onChange={e => {
                             setListName(e.target.value)
+                            setBorder(false)
                         }
 
                         }
+                        style={{ border: border && !ListName ? "1px solid red" : "1px solid black" }}
                     />
                 </label>
                 <label>
@@ -85,6 +87,7 @@ export default function FormPost() {
                             setDescription(e.target.value)
                             setBorder(false)
                         }}
+                        style={{ border: border && !Description ? "1px solid red" : "1px solid black" }}
                     />
                 </label>
                 <label>

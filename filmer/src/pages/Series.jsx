@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { takevote } from "../components/main";
 import { Link } from "react-router-dom";
 import Style from "./Series.module.css"
+import Type from "../components/typeWrite";
 
 export default function Series(props) {
-  console.log("props series", props);
-
-  const [letra, setLetra] = useState("")
-
+  const { typeWirite, letra } = Type()
   useEffect(() => {
-    function typeWirite() {
-      let elemento = "series"
-      const arrayLetras = elemento.split("")
-      let TepLetra = "";
-      arrayLetras.forEach((letsra, i) => {
-        setTimeout(() => {
-          TepLetra += letsra
-          setLetra(TepLetra)
-        }, 150 * i)
-      })
-    } typeWirite()
-  }, [])
-
-
-
+    typeWirite("series")
+  }, [typeWirite])
 
   const OnPropsOk = () => {
     return (
@@ -63,9 +48,6 @@ export default function Series(props) {
       </>
     );
   };
-  const padrão = () => {
-    return <></>;
-  };
 
-  return props.series === undefined ? padrão() : OnPropsOk();
+  return props.series ? OnPropsOk() : <></>;;
 }

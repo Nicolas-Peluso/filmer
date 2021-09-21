@@ -1,80 +1,75 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import quantidadeDePessoasQueVotarao from "../components/pessoasQueVotarao";
 import styled from "./detail.module.css"
-import { useHistory } from "react-router";
 
-function quantidadeDePessoasQueVotarao(votosPessoas) {
-    return (
-        <div>
-            {new Intl.NumberFormat().format(votosPessoas)} pessoas participarao da votação
-        </div>
-    )
-}
-
-function Detail(props) {
+function Detail({ movie, MoreImages, credits }) {
     const Def = () => {
-        const history = useHistory();
-        let count = 0;
-        const er = props.MoreImages;
-        console.log("detail", props)
-        function handleClick() {
-            const r = document.querySelectorAll("img.imagem")
-            if (r.length)
-                r.forEach(image => image.classList.remove(styled.ativo));
 
-            if (count >= r.length - 1)
+        let count = 0;
+
+        const handleClick = useCallback(() => {
+            const images = document.querySelectorAll("img.imagem")
+            if (images.length)
+                images.forEach(image => image.classList.remove(styled.ativo));
+
+            if (count >= images.length - 1) //eslint-disable-next-line
                 count = 0;
 
-            if (count < 0)
-                count = r.length - 1;
+            if (count < 0)// eslint-disable-next-line
 
-            if (r.length)
-                r[count].classList.add(styled.ativo);
-        }
+                count = images.length - 1;
 
-        useEffect(() => handleClick(), [er])
+            if (images.length)
+                images[count].classList.add(styled.ativo);
+            return count
+        }, [])
 
+
+        useEffect(() => {
+            handleClick()
+        }, [handleClick])
+
+        console.log(MoreImages)
         return (
             <>
+
                 <div className={styled.detail}>
-                    {props.movie.movie_results.map((item, i) => (
+                    {movie.movie_results.map((item, i) => (
                         <>
-                            <div className={styled.containerImg} key={props.movie.movie_results.id} >
+                            <div className={styled.containerImg} key={movie.movie_results.id} >
                                 <h1>{item.original_title}</h1>
 
-                                {props.MoreImages && props.MoreImages.backdrops &&
-                                    props.MoreImages.backdrops.map(image => (
+                                {MoreImages && MoreImages.backdrops &&
+                                    MoreImages.backdrops.map((image, i) => (
                                         <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt="desculpe nao foi possivel acessar essa imagem"
-                                            className="imagem detail_ativo__2Hq9m" />
+                                            className="imagem" key={i} />
                                     ))
+
                                 }
                                 <button className={styled.anterior} onClick={() => {
                                     count -= 1
                                     handleClick()
-                                }}>anterior</button>
+                                }} key={Math.random()}>anterior</button>
 
                                 <button className={styled.proximo} onClick={() => {
                                     count += 1
                                     handleClick()
-                                }}
+                                }} key={Math.random()}
                                 >proximo</button>
                             </div>
                             <div className={styled.ContainerText} key={i + 6}>
 
                                 <p key={i + 4} >{item.overview}</p>
 
-                                <div key={i + 5}>
-                                    {quantidadeDePessoasQueVotarao(item.vote_count)}
-                                </div>
+                                <quantidadeDePessoasQueVotarao VotesAcurace={item.vote_count} />
                             </div>
                         </>
                     ))}
                 </div>
-
             </>
         )
     }
-    return props.movie && props.credits ? Def() : <></>
+    return movie && credits ? Def() : <></>
 }
 
 export default Detail;

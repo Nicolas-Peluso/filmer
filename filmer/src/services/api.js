@@ -2,6 +2,20 @@ export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 
 const servicesApi = {
 
+    async GetingGendersSeries() {
+        let request = fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${apiKey}&language=en-US`)
+        let response = (await request).json()
+        let data = (await response)
+        return data
+    },
+
+    async GetingDataForMain() {
+        let request = fetch(`https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`);
+        let response = (await request).json();
+        let data = await response;
+        return data
+    },
+
     async getingMoviesCredit(id) {
         let request = fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=pt-br`)
         let response = (await request).json()

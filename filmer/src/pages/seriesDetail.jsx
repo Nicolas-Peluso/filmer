@@ -19,7 +19,7 @@ export default function DetailSeries(props) {
             {seriado.created_by.map(create => (
               <li key={create.id}>
                 <p key={create.name}>criado por: {create.name}</p>
-                <img src={`https://image.tmdb.org/t/p/w500/${create.profile_path}`} alt="nao foi possivel carregar a imagem" key={create.id + Math.random()} />
+                <img src={`https://image.tmdb.org/t/p/w500/${create.profile_path}`} alt="nao foi possivel carregar a imagem" key={Math.random()} />
               </li>
             ))}
           </ul>
@@ -46,23 +46,23 @@ export default function DetailSeries(props) {
             {seriado.production_companies.map(compani => (
               <>
                 <li key={compani.name}><p>{compani.name}</p></li>
-                <li key={compani.id}><img src={`https://image.tmdb.org/t/p/w500/${compani.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" /></li>
+                <li key={compani.id}><img src={`https://image.tmdb.org/t/p/w500/${compani.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" key={Math.random()} /></li>
               </>
             ))}
           </ul>
 
           {seriado.networks.map(network => (
 
-            <ul className={Style.networks}><h1>network(s):</h1>
-              <li key={network.id}><p key={Math.random()}>Nome: {network.name}</p><img key={network.logo_path} src={`https://image.tmdb.org/t/p/w500/${network.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" /></li>
+            <ul className={Style.networks} key={Math.random()}><h1 key={Math.random()}>network(s):</h1>
+              <li key={network.id}><p key={Math.random()}>Nome: {network.name}</p><img key={Math.random()} src={`https://image.tmdb.org/t/p/w500/${network.logo_path}`} alt="desculpe nao foi possivel carregar a imagem" key={Math.random()} /></li>
             </ul>
           ))}
         </div>
         <div className={Style.SlideSeason}>
           {seriado.seasons.map(tempo => (
             <>
-              <div className={Style.Inside}>
-                <img key={tempo.id} src={`https://image.tmdb.org/t/p/w500/${tempo.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" />
+              <div className={Style.Inside} key={Math.random()}>
+                <img key={tempo.id} src={`https://image.tmdb.org/t/p/w500/${tempo.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" key={Math.random} />
                 <p key={tempo.id + Math.random()}>Nome da temporada: {tempo.name}</p>
                 <p key={tempo.name}>{tempo.overview}</p>
                 <p key={tempo.episode_count}>quantia de pesiodios: {tempo.episode_count}</p>
