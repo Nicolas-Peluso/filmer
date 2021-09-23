@@ -16,9 +16,9 @@ import api from "../services/api"
 import ContextObjet from "../context/Contexto";
 import FormPost from "../post/postForm";
 import Slide from "../components/Slide";
+import ErrorPage from "../pages/ErrorPage";
 
 function Rotas() {
-
     const [data, SetData] = useState(undefined)
     const [movieDetail, setMovieDetail] = useState(undefined)
     const [VideosForDetail, setVideosForDetail] = useState(undefined)
@@ -34,6 +34,7 @@ function Rotas() {
     const [MoreImages, setMoreImages] = useState(undefined)
     const [PersonCredit, setPersonCredit] = useState(undefined)
     const [images, setImages] = useState(undefined)
+
 
     useEffect(() => SetData(page), [page])
 
@@ -131,7 +132,7 @@ function Rotas() {
                             similar={getingSimilarMovies} MoreImages={GetingImages} />
                     </Route>
 
-                    <Route path="/detail">
+                    <Route path="/detail/:id">
                         <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
                             pessoa={GetPerson} personCredits={GetingPersonMovies}
                             MoreImages={images}
@@ -141,7 +142,7 @@ function Rotas() {
                         {cast ? <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} /> : ""}
                     </Route>
 
-                    <Route path="/pessoa">
+                    <Route path="/pessoa/:id">
                         <ContextObjet.Provider value={PersonData}>
                             <PersonPage />
                         </ContextObjet.Provider>
@@ -150,18 +151,18 @@ function Rotas() {
 
                     </Route>
 
-                    <Route path="/pesquisar">
+                    <Route path="/pesquisar/:id">
                         <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch}
                             video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} personCredits={GetingPersonMovies} MoreImages={GetingImages} />
                     </Route>
 
-                    <Route path="/series">
+                    <Route path="/series/:id">
                         <SeriesChooseGenders QuerySeries={getSeries} />
                         <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
                         <Series series={series} serieId={getSeriesForDetail} />
                     </Route>
 
-                    <Route path="/serie/detail">
+                    <Route path="/serie/detail/:id">
                         <SeriesChooseGenders QuerySeries={getSeries} />
                         <DetailSeries seriado={seriesDetail} />
                     </Route>
@@ -169,7 +170,9 @@ function Rotas() {
                     <Route path="/favoritos">
                         <Favorito movie={GetMovieId} video={GetVideosForDetail} />
                     </Route>
-
+                    <Route path="*">
+                        <ErrorPage />
+                    </Route>
                 </Switch>
                 <Footer />
             </Router>

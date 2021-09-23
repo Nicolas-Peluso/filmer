@@ -1,10 +1,13 @@
 import React from "react";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { takevote } from "../components/main";
 import PageNationControls from "../components/paginationNumber";
 import Style from "./pesquisar.module.css"
-export default function Pesquisar(props) {
 
+export default function Pesquisar(props) {
+  console.log(props)
+  const para = useParams()
   return (
     <>
       {props.data && <>
@@ -31,13 +34,13 @@ export default function Pesquisar(props) {
                 <br />
                 <Link to={() => {
                   if (item.known_for) {
-                    return '/pessoa'
+                    return `/pessoa/${item.id}`
                   }
                   else if (item.release_date) {
-                    return '/detail'
+                    return `/detail/${item.title.replace(" ", "-")}`
                   }
                   else {
-                    return '/serie/detail'
+                    return `/serie/detail/${item.original_name.replace(" ", "-")}`
                   }
                 }
                 }>

@@ -18,7 +18,7 @@ function Header(props) {
         else {
             props.onSubmit({ search: search, type: Type })
             console.log("header", props)
-            history.push("/pesquisar")
+            history.push(`/pesquisar/${search.replace(" ", "-")}`)
         }
     }
 
@@ -56,7 +56,7 @@ function Header(props) {
                 </li>
 
                 <li key={3}>
-                    <Link to="/series">series</Link>
+                    <Link to={`/series/ChooseGender`}>series</Link>
                 </li>
 
             </ul>

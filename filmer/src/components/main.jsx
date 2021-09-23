@@ -33,7 +33,7 @@ function Main(props) {
               alt="desculpe nao foi possivel carregar a imagem"
             />
             <p className={Styled.descrição}>{item.overview}</p>
-            <Link to="/detail">
+            <Link to={`/detail/${item.title.replace(" ", "-")}`}>
               <button
                 onClick={() => {
                   props.movie(item.id);

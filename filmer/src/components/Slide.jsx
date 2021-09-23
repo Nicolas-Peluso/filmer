@@ -7,7 +7,6 @@ export default function Slide(props) {
 
     return (
         <>
-            {() => { console.log("knveegnk") }}
             {props.tittle && <h1 className={Style.titlleList}>{props.tittle}:</h1>}
             <div className={Style.slide}>
                 {props.Slide && props.Slide.map(pessoa => (
@@ -23,7 +22,7 @@ export default function Slide(props) {
                             if (pessoa.name) {
                                 props.pessoa(pessoa.id)
                                 props.personCredits(pessoa.id)
-                                history.push("/pessoa")
+                                history.push(`/pessoa/${pessoa.name}`)
                             }
                             else if (pessoa.title) {
                                 props.movie(pessoa.id);
@@ -31,7 +30,7 @@ export default function Slide(props) {
                                 props.credits(pessoa.id)
                                 props.similar(pessoa.id);
                                 props.MoreImages(pessoa.id)
-                                history.push("/detail")
+                                history.push(`/detail/${pessoa.title.replace(" ", "-")}`)
                             }
                         }}
                         >ver mais</button>

@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from "react";
+import { useParams } from "react-router";
 import quantidadeDePessoasQueVotarao from "../components/pessoasQueVotarao";
 import styled from "./detail.module.css"
 
 function Detail({ movie, MoreImages, credits }) {
     const Def = () => {
+        const params = useParams()
 
         let count = 0;
 
@@ -44,7 +46,6 @@ function Detail({ movie, MoreImages, credits }) {
                                         <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt="desculpe nao foi possivel acessar essa imagem"
                                             className="imagem" key={i} />
                                     ))
-
                                 }
                                 <button className={styled.anterior} onClick={() => {
                                     count -= 1

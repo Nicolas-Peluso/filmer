@@ -24,7 +24,9 @@
 
   .containerImg img.ativo{
     opacity: 1;
+    transition: .5s ease;
   }
+
   .anterior, .proximo{
     position: absolute;
     background-color: rgb(80, 80, 80);

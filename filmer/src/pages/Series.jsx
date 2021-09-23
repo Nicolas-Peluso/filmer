@@ -23,7 +23,7 @@ export default function Series(props) {
                   alt="desculpe nao foi possivel carregar a imagem"
                 />
                 <p className={Style.descricao}>{item.overview}</p>
-                <Link to="/serie/detail">
+                <Link to={`/serie/detail/${item.original_name.replace(" ", "-")}`}>
                   <button
                     onClick={() => {
                       props.serieId(item.id);

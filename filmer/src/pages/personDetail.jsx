@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router";
 import ContextObjet from "../context/Contexto";
 import Style from "./personDetail.module.css"
 
+
 export default function PersonPage(props) {
   const context = useContext(ContextObjet)
-
+  const para = useParams()
+  console.log("i am", para)
   const def = () => <h1>eres idiota tico</h1>;
   ;
   const perosnDetailRight = () => {
