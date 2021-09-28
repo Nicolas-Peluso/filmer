@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import Type from "./typeWrite";
 import api from "../services/api"
 import Loading from "./Loading";
+import Head from "./Head";
 export const takevote = (vote) => (vote > 5 ? "green" : "red");
 
 function Main(props) {
   const [list, Setlist] = useState(undefined);
   const [loading, setLoading] = useState(true)
   const { typeWirite, letra } = Type()
-
+  const [ite, setIte] = React.useState([])
   useEffect(() => {
     typeWirite("lançamentos")
   }, [typeWirite])
@@ -23,7 +24,7 @@ function Main(props) {
   }, [])
   return (
     <section className={Styled.container}>
-
+      <Head title="Lançamentos" />
       <h1 className={Styled.typeWirite}>{letra}</h1>
       {list && list.map((item) => (
         <ul className={Styled.poster} key={item.id}>
@@ -61,6 +62,7 @@ function Main(props) {
           </li>
         </ul>
       ))}
+
       {loading && <Loading />}
     </section>
   );

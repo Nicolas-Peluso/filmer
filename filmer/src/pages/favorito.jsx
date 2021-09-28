@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import Head from "../components/Head"
 import { takevote } from "../components/main"
 import Styled from "./favorito.module.css"
 
@@ -10,6 +11,7 @@ export default function Favorito(props) {
     return (
 
         <>
+            <Head title="favorito" />
             {fav && <section className={Styled.container}>
                 {fav.map((item) => (
                     <ul className={Styled.poster} key={item.id}>

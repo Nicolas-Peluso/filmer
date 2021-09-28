@@ -3,6 +3,7 @@ import { takevote } from "../components/main";
 import { Link } from "react-router-dom";
 import Style from "./Series.module.css"
 import Type from "../components/typeWrite";
+import Head from "../components/Head";
 
 export default function Series(props) {
   const { typeWirite, letra } = Type()
@@ -14,6 +15,7 @@ export default function Series(props) {
     return (
       <>
         <section className={Style.container}>
+          <Head title="Series" />
           <h1 className={Style.typeWirite}>{letra}</h1>
           {props.series.results.map((item) => (
             <ul className={Style.poster} key={item.id}>

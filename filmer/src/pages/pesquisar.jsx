@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Head from "../components/Head";
 import { takevote } from "../components/main";
 import PageNationControls from "../components/paginationNumber";
 import Style from "./pesquisar.module.css"
@@ -13,7 +14,7 @@ export default function Pesquisar(props) {
       {props.data && <>
         <PageNationControls TotalPage={props.TotalPage} page={props.page} />
         <section className={Style.container}>
-
+          <Head title="pesquisar" />
           <h1>pesquisa:</h1>
 
           {props.data.results.map((item) => (

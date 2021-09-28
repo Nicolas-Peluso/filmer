@@ -135,10 +135,11 @@ function Rotas() {
                     <Route path="/detail/:id">
                         <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
                             pessoa={GetPerson} personCredits={GetingPersonMovies}
-                            MoreImages={images}
-                        />
+                            MoreImages={images} />
+
                         {MoreImages ? <Slide Slide={MoreImages.results} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
                             similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} /> : ""}
+
                         {cast ? <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} /> : ""}
                     </Route>
 
@@ -148,7 +149,6 @@ function Rotas() {
                         </ContextObjet.Provider>
                         {PersonCredit && PersonData && <Slide Slide={PersonCredit.cast} tittle={PersonData.name} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
                             similar={getingSimilarMovies} MoreImages={GetingImages} />}
-
                     </Route>
 
                     <Route path="/pesquisar/:id">

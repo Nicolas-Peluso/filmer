@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router";
+import Head from "../components/Head";
 import ContextObjet from "../context/Contexto";
 import Style from "./personDetail.module.css"
 
@@ -7,14 +8,12 @@ import Style from "./personDetail.module.css"
 export default function PersonPage(props) {
   const context = useContext(ContextObjet)
   const para = useParams()
-  console.log("i am", para)
   const def = () => <h1>eres idiota tico</h1>;
-  ;
+  console.log("ffs", context)
   const perosnDetailRight = () => {
-    console.log("context", context)
-    console.log("pessoas", props)
     return (
       <div className={Style.containerPessoa}>
+        <Head title="personDetail" />
         <ul className={Style.OtherNames}>
           <h4>tambem conhecido como:</h4>
           {context.also_known_as.map((item, i) => (

@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "../components/Head";
 import Style from "./seriesDetail.module.css"
 
 export default function DetailSeries(props) {
@@ -11,6 +12,8 @@ export default function DetailSeries(props) {
     return (
       <>
         <div className={Style.Seriesdetail}>
+          <Head title="SeriesDetail" />
+
           <div className={Style.imgContainer} key="1">
             <img src={`https://image.tmdb.org/t/p/w500/${seriado.backdrop_path}`} alt="desculpe nao foi possivel carregar a imagem" key="2" />
             <p key={Math.random()}>{seriado.overview}</p>

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router";
+import Head from "../components/Head";
 import quantidadeDePessoasQueVotarao from "../components/pessoasQueVotarao";
 import styled from "./detail.module.css"
 
@@ -34,7 +35,7 @@ function Detail({ movie, MoreImages, credits }) {
         console.log(MoreImages)
         return (
             <>
-
+                <Head title="Detalhe" />
                 <div className={styled.detail}>
                     {movie.movie_results.map((item, i) => (
                         <>
