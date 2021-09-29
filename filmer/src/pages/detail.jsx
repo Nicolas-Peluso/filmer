@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router";
 import Head from "../components/Head";
-import quantidadeDePessoasQueVotarao from "../components/pessoasQueVotarao";
+import QuantidadeDePessoasQueVotarao from "../components/pessoasQueVotarao";
+import TakeVote from "../components/TakeVote";
 import styled from "./detail.module.css"
 
 function Detail({ movie, MoreImages, credits }) {
@@ -26,7 +27,6 @@ function Detail({ movie, MoreImages, credits }) {
                 images[count].classList.add(styled.ativo);
             return count
         }, [])
-
 
         useEffect(() => {
             handleClick()
@@ -63,7 +63,8 @@ function Detail({ movie, MoreImages, credits }) {
 
                                 <p key={i + 4} >{item.overview}</p>
 
-                                <quantidadeDePessoasQueVotarao VotesAcurace={item.vote_count} />
+                                <QuantidadeDePessoasQueVotarao VotesAcurace={item.vote_count} />
+                                <TakeVote vote={item.vote_average} width={150} heigth={150} fontSize={1.1} />
                             </div>
                         </>
                     ))}

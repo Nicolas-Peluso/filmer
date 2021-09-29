@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import Style from "./Slide.module.css"
+import TakeVote from "./TakeVote";
 export default function Slide(props) {
     console.log("Slide", props)
     const history = useHistory()
@@ -12,7 +13,7 @@ export default function Slide(props) {
                 {props.Slide && props.Slide.map(pessoa => (
                     <ul key={Math.random()}>
                         <img src={`https://image.tmdb.org/t/p/w500/${pessoa.profile_path ? pessoa.profile_path : pessoa.poster_path}`} alt="desculpe nao foi possivel carregar a imagem" />
-
+                        {pessoa.poster_path && <TakeVote vote={pessoa.vote_average} />}
                         {pessoa.name ?
                             <p>{pessoa.name} COMO:
                                 {pessoa.character}</p> : <p className={Style.Description}>{pessoa.overview} COMO:

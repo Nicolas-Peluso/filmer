@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { takevote } from "../components/main";
+import TakeVote from "../components/TakeVote";
 import { Link } from "react-router-dom";
 import Style from "./Series.module.css"
 import Type from "../components/typeWrite";
@@ -34,15 +34,7 @@ export default function Series(props) {
                     ver mais
                   </button>
                 </Link>
-                <div
-                  style={{
-                    backgroundColor: takevote(item.vote_average),
-                    borderTop: "5px solid transparent",
-                  }}
-                  className={Style.votacion}
-                >
-                  <div>{item.vote_average}</div>
-                </div>
+                <TakeVote vote={item.vote_average} />
               </li>
             </ul>
           ))}

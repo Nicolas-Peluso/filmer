@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Head from "../components/Head";
-import { takevote } from "../components/main";
+import TakeVote from "../components/TakeVote";
 import PageNationControls from "../components/paginationNumber";
 import Style from "./pesquisar.module.css"
 
@@ -65,15 +65,7 @@ export default function Pesquisar(props) {
                     ver mais
                   </button>
                 </Link>
-                <div
-                  style={{
-                    backgroundColor: takevote(item.vote_average),
-                    borderTop: "5px solid transparent",
-                  }}
-                  className="votacion"
-                >
-                  <div>{item.vote_average}</div>
-                </div>
+                <TakeVote vote={item.vote_average} />
               </li>
             </ul>
           ))}

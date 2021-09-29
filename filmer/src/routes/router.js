@@ -17,6 +17,7 @@ import ContextObjet from "../context/Contexto";
 import FormPost from "../post/postForm";
 import Slide from "../components/Slide";
 import ErrorPage from "../pages/ErrorPage";
+export const Context = React.createContext()
 
 function Rotas() {
     const [data, SetData] = useState(undefined)
@@ -34,7 +35,6 @@ function Rotas() {
     const [MoreImages, setMoreImages] = useState(undefined)
     const [PersonCredit, setPersonCredit] = useState(undefined)
     const [images, setImages] = useState(undefined)
-
 
     useEffect(() => SetData(page), [page])
 
@@ -122,59 +122,61 @@ function Rotas() {
     return (
         <>
             <Router>
-                <Header onSubmit={FromHeader} />
-                <Switch>
-                    <Route path="/Create/List">
-                        <FormPost />
-                    </Route>
-                    <Route exact path="/">
-                        <Main movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
-                            similar={getingSimilarMovies} MoreImages={GetingImages} />
-                    </Route>
+                <Context.Provider>
+                    <Header onSubmit={FromHeader} />
+                    <Switch>
+                        <Route path="/Create/List">
+                            <FormPost />
+                        </Route>
+                        <Route exact path="/">
+                            <Main movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                                similar={getingSimilarMovies} MoreImages={GetingImages} />
+                        </Route>
 
-                    <Route path="/detail/:id">
-                        <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
-                            pessoa={GetPerson} personCredits={GetingPersonMovies}
-                            MoreImages={images} />
+                        <Route path="/detail/:id">
+                            <Detail movie={movieDetail} video={VideosForDetail} credits={cast} similar={MoreImages}
+                                pessoa={GetPerson} personCredits={GetingPersonMovies}
+                                MoreImages={images} />
 
-                        {MoreImages ? <Slide Slide={MoreImages.results} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
-                            similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} /> : ""}
+                            {MoreImages ? <Slide Slide={MoreImages.results.slice(0, 11)} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                                similar={getingSimilarMovies} tittle={"Filmes Similares"} MoreImages={GetingImages} /> : ""}
 
-                        {cast ? <Slide Slide={cast.cast} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} /> : ""}
-                    </Route>
+                            {cast ? <Slide Slide={cast.cast.slice(0, 10)} tittle={"Atores"} pessoa={GetPerson} personCredits={GetingPersonMovies} /> : ""}
+                        </Route>
 
-                    <Route path="/pessoa/:id">
-                        <ContextObjet.Provider value={PersonData}>
-                            <PersonPage />
-                        </ContextObjet.Provider>
-                        {PersonCredit && PersonData && <Slide Slide={PersonCredit.cast} tittle={PersonData.name} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
-                            similar={getingSimilarMovies} MoreImages={GetingImages} />}
-                    </Route>
+                        <Route path="/pessoa/:id">
+                            <ContextObjet.Provider value={PersonData}>
+                                <PersonPage />
+                            </ContextObjet.Provider>
+                            {PersonCredit && PersonData && <Slide Slide={PersonCredit.cast} tittle={PersonData.name} movie={GetMovieId} video={GetVideosForDetail} credits={GetingMovieCredits}
+                                similar={getingSimilarMovies} MoreImages={GetingImages} />}
+                        </Route>
 
-                    <Route path="/pesquisar/:id">
-                        <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch}
-                            video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} personCredits={GetingPersonMovies} MoreImages={GetingImages} />
-                    </Route>
+                        <Route path="/pesquisar/:id">
+                            <Pesquisar data={data} movie={GetMovieId} pessoa={GetPerson} serieId={getSeriesForDetail} TotalPage={Totalpages} page={PaginationForSearch}
+                                video={GetVideosForDetail} credits={GetingMovieCredits} similar={getingSimilarMovies} personCredits={GetingPersonMovies} MoreImages={GetingImages} />
+                        </Route>
 
-                    <Route path="/series/:id">
-                        <SeriesChooseGenders QuerySeries={getSeries} />
-                        <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
-                        <Series series={series} serieId={getSeriesForDetail} />
-                    </Route>
+                        <Route path="/series/:id">
+                            <SeriesChooseGenders QuerySeries={getSeries} />
+                            <PageNationControls TotalPage={Totalpages} page={PaginationForSeries} />
+                            <Series series={series} serieId={getSeriesForDetail} />
+                        </Route>
 
-                    <Route path="/serie/detail/:id">
-                        <SeriesChooseGenders QuerySeries={getSeries} />
-                        <DetailSeries seriado={seriesDetail} />
-                    </Route>
+                        <Route path="/serie/detail/:id">
+                            <SeriesChooseGenders QuerySeries={getSeries} />
+                            <DetailSeries seriado={seriesDetail} />
+                        </Route>
 
-                    <Route path="/favoritos">
-                        <Favorito movie={GetMovieId} video={GetVideosForDetail} />
-                    </Route>
-                    <Route path="*">
-                        <ErrorPage />
-                    </Route>
-                </Switch>
-                <Footer />
+                        <Route path="/favoritos">
+                            <Favorito movie={GetMovieId} video={GetVideosForDetail} />
+                        </Route>
+                        <Route path="*">
+                            <ErrorPage />
+                        </Route>
+                    </Switch>
+                    <Footer />
+                </Context.Provider>
             </Router>
         </>
     )

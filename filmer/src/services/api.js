@@ -20,6 +20,7 @@ const servicesApi = {
         let request = fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}&language=pt-br`)
         let response = (await request).json()
         let Data = await response
+        console.log("conso", Data.cast.slice(0, 10))
         return Data
     },
 

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import Head from "../components/Head"
-import { takevote } from "../components/main"
+import TakeVote from "../components/TakeVote"
 import Styled from "./favorito.module.css"
 
 
@@ -31,15 +31,7 @@ export default function Favorito(props) {
                                     ver mais
                                 </button>
                             </Link>
-                            <div
-                                style={{
-                                    backgroundColor: takevote(item.vote_average),
-                                    borderTop: "5px solid transparent",
-                                }}
-                                className={Styled.votacion}
-                            >
-                                <div>{item.vote_average}</div>
-                            </div>
+                            <TakeVote vote={item.vote_average} />
                         </li>
                     </ul>
                 ))}

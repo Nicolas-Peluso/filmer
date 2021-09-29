@@ -5,13 +5,15 @@ import Type from "./typeWrite";
 import api from "../services/api"
 import Loading from "./Loading";
 import Head from "./Head";
-export const takevote = (vote) => (vote > 5 ? "green" : "red");
+import { Context } from "../routes/router"
+import TakeVote from "./TakeVote";
 
 function Main(props) {
   const [list, Setlist] = useState(undefined);
   const [loading, setLoading] = useState(true)
   const { typeWirite, letra } = Type()
-  const [ite, setIte] = React.useState([])
+  const s = React.useContext(Context)
+
   useEffect(() => {
     typeWirite("lançamentos")
   }, [typeWirite])
@@ -22,6 +24,7 @@ function Main(props) {
       setLoading(false)
     })
   }, [])
+
   return (
     <section className={Styled.container}>
       <Head title="Lançamentos" />
@@ -47,20 +50,12 @@ function Main(props) {
                 ver mais
               </button>
             </Link>
-
-            <div
-              style={{
-                backgroundColor: takevote(item.vote_average),
-                borderTop: "5px solid transparent",
-              }}
-              className="votacion"
-            >
-              <div>{item.vote_average}</div>
-            </div>
+            <TakeVote vote={item.vote_average} />
             <div className={Styled.containerIcon}>
             </div>
           </li>
         </ul>
+
       ))}
 
       {loading && <Loading />}
