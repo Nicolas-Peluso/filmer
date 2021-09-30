@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Style from "./Series.module.css"
 import Type from "../components/typeWrite";
 import Head from "../components/Head";
+import FavoritoButton from "../components/FavoritoButton";
 
 export default function Series(props) {
   const { typeWirite, letra } = Type()
@@ -34,6 +35,7 @@ export default function Series(props) {
                     ver mais
                   </button>
                 </Link>
+                <FavoritoButton type="favorito" filme={item} />
                 <TakeVote vote={item.vote_average} />
               </li>
             </ul>

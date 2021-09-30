@@ -5,6 +5,7 @@ import Head from "../components/Head";
 import TakeVote from "../components/TakeVote";
 import PageNationControls from "../components/paginationNumber";
 import Style from "./pesquisar.module.css"
+import FavoritoButton from "../components/FavoritoButton";
 
 export default function Pesquisar(props) {
   console.log(props)
@@ -65,6 +66,7 @@ export default function Pesquisar(props) {
                     ver mais
                   </button>
                 </Link>
+                <FavoritoButton type="favorito" filme={item} />
                 <TakeVote vote={item.vote_average} />
               </li>
             </ul>

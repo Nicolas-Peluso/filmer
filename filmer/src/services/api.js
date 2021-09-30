@@ -1,6 +1,12 @@
 export const apiKey = "54ec0fb23647e5d3bd0095fcade09c88";
 
 const servicesApi = {
+    async GetingUpcomingMovies() {
+        let request = fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=pt-BR&page=1`)
+        let response = (await request).json()
+        let data = (await response)
+        return data
+    },
 
     async GetingGendersSeries() {
         let request = fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${apiKey}&language=en-US`)
@@ -10,9 +16,10 @@ const servicesApi = {
     },
 
     async GetingDataForMain() {
-        let request = fetch(`https://api.themoviedb.org/3/list/3?page=1&api_key=${apiKey}&language=pt-BR`);
+        let request = fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR$page=1`);
         let response = (await request).json();
         let data = await response;
+        console.log(data)
         return data
     },
 

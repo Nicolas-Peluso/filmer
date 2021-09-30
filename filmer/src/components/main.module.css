@@ -1,13 +1,14 @@
 .container {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    margin: 0 0 0 50px;
-    grid-gap: 50px;
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 5px;
+    
   }
-  .container h1 {
-    grid-column: 1 / 4;
+  .typeWirite {
+    text-align: center;
     margin: 50px auto;
     font-size: 2em;
     text-transform: uppercase;
@@ -20,6 +21,7 @@
     max-width: 500px;
     background-color: rgb(0, 0, 0);
     position: relative;
+    margin: 20px;
   }
   
   .container ul li .descrição {
